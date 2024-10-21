@@ -1,0 +1,7 @@
+ok	4 connecteurs jack femelle
+ok	1 led rouge
+ok	1 resistance 1kOhms
+ok	1 fusible
+ok	8 JST 2 pin femelles
+nok	1 Port XT60 femelle (on a les mâles)
+ok	3 Bucks   

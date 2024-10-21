@@ -1,0 +1,7 @@
+raspi-webgui
+
+https://www.framboise314.fr/raspap-creez-votre-hotspot-wifi-avec-un-raspberry-pi-de-facon-express/
+
+add: 10.3.141.1
+Id: admin
+mdp: secret

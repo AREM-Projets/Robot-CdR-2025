@@ -1,0 +1,280 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.8 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.8">
+  <diagram name="Page-1" id="hu3zxFh4W1NHt3CpsdvC">
+    <mxGraphModel dx="2302" dy="1347" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-1" value="Batteries&lt;div&gt;(mise en série 24V)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="152" y="226" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-2" value="" style="shape=link;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeColor=#ff0000;" edge="1" parent="1" source="WoMaA5T-QToIn6mIG-1T-1">
+          <mxGeometry width="100" relative="1" as="geometry">
+            <mxPoint x="167" y="456" as="sourcePoint" />
+            <mxPoint x="212" y="352" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="1" source="WoMaA5T-QToIn6mIG-1T-3" target="WoMaA5T-QToIn6mIG-1T-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="572" y="332" />
+              <mxPoint x="572" y="302" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="522.0000000000001" y="312" as="sourcePoint" />
+            <mxPoint x="522.0000000000001" y="266" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-3" value="Raspberrypi" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="462" y="312" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#00FF00;" edge="1" parent="1" source="WoMaA5T-QToIn6mIG-1T-4" target="WoMaA5T-QToIn6mIG-1T-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-4" value="STM32 embase" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="772" y="282" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#00FF00;" edge="1" parent="1" source="WoMaA5T-QToIn6mIG-1T-5" target="WoMaA5T-QToIn6mIG-1T-29">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="642" y="474" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#00FF00;" edge="1" parent="1" source="WoMaA5T-QToIn6mIG-1T-5" target="WoMaA5T-QToIn6mIG-1T-30">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="662" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#00FF00;" edge="1" parent="1" source="WoMaA5T-QToIn6mIG-1T-5" target="WoMaA5T-QToIn6mIG-1T-31">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="672" y="551" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#00FF00;" edge="1" parent="1" source="WoMaA5T-QToIn6mIG-1T-5" target="WoMaA5T-QToIn6mIG-1T-32">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="692" y="586" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="1" source="WoMaA5T-QToIn6mIG-1T-5" target="WoMaA5T-QToIn6mIG-1T-45">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="657" y="322" />
+              <mxPoint x="657" y="322" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=1;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="1" source="WoMaA5T-QToIn6mIG-1T-5" target="WoMaA5T-QToIn6mIG-1T-46">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="687" y="312" />
+              <mxPoint x="687" y="312" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-5" value="STM32 actionneur" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="612" y="342" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-7" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="1" target="WoMaA5T-QToIn6mIG-1T-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="572" y="332" as="sourcePoint" />
+            <mxPoint x="512" y="452" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="572" y="352" />
+              <mxPoint x="572" y="362" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="1" source="WoMaA5T-QToIn6mIG-1T-10" target="WoMaA5T-QToIn6mIG-1T-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-10" value="Buck RPi" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="262" y="312" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-12" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="1" target="WoMaA5T-QToIn6mIG-1T-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="212" y="332" as="sourcePoint" />
+            <mxPoint x="382" y="362" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="1" source="WoMaA5T-QToIn6mIG-1T-13" target="WoMaA5T-QToIn6mIG-1T-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-13" value="Drivers Moteurs pas à pas ST" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="772" y="392" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-14" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="1" target="WoMaA5T-QToIn6mIG-1T-13">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="212" y="412" as="sourcePoint" />
+            <mxPoint x="272" y="342" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="232" y="412" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-15" value="Moteurs" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="927" y="397" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="WoMaA5T-QToIn6mIG-1T-17" target="WoMaA5T-QToIn6mIG-1T-29">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="362" y="492" />
+              <mxPoint x="362" y="474" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-17" value="Buck A" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="262" y="472" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="WoMaA5T-QToIn6mIG-1T-18" target="WoMaA5T-QToIn6mIG-1T-31">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="362" y="562" />
+              <mxPoint x="362" y="551" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-18" value="Buck B" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="262" y="542" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-19" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="212" y="491.65999999999997" as="sourcePoint" />
+            <mxPoint x="262" y="491.65999999999997" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="232" y="491.65999999999997" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-20" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="212" y="561.66" as="sourcePoint" />
+            <mxPoint x="262" y="561.66" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="232" y="561.66" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-21" value="BAU" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="192" y="352" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-22" value="" style="shape=link;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeColor=#ff0000;" edge="1" parent="1">
+          <mxGeometry width="100" relative="1" as="geometry">
+            <mxPoint x="211.66000000000003" y="382" as="sourcePoint" />
+            <mxPoint x="212" y="562" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="1" source="WoMaA5T-QToIn6mIG-1T-23" target="WoMaA5T-QToIn6mIG-1T-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-23" value="Switch RPi" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="362" y="312" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-29" value="Moteur actionneur 1.1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="392" y="459.5" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-30" value="Moteur actionneur 1.2" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="392" y="494.5" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-31" value="Moteur actionneur 2.1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="392" y="536" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-32" value="Moteur actionneur 2.2" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="392" y="571" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-35" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="WoMaA5T-QToIn6mIG-1T-30">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="362" y="492" as="sourcePoint" />
+            <mxPoint x="562" y="452" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="362" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-36" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="362" y="562" as="sourcePoint" />
+            <mxPoint x="392" y="582" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="362" y="582" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-42" value="LIDAR" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="512" y="226" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;strokeColor=#00FF00;" edge="1" parent="1" source="WoMaA5T-QToIn6mIG-1T-45" target="WoMaA5T-QToIn6mIG-1T-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="642" y="272" />
+              <mxPoint x="642" y="272" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-45" value="Capteur 1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="612" y="226" width="60" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=0;entryDx=0;entryDy=0;strokeColor=#00FF00;" edge="1" parent="1" source="WoMaA5T-QToIn6mIG-1T-46" target="WoMaA5T-QToIn6mIG-1T-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="702" y="272" />
+              <mxPoint x="702" y="272" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-46" value="Capteur 2" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="672" y="226" width="60" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-51" value="Ecran tactile" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="427" y="226" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.893;entryY=-0.046;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#00FF00;" edge="1" parent="1" source="WoMaA5T-QToIn6mIG-1T-42" target="WoMaA5T-QToIn6mIG-1T-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="542" y="289" />
+              <mxPoint x="533" y="289" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="482.0000000000001" y="312" as="sourcePoint" />
+            <mxPoint x="482.0000000000001" y="266" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.125;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#00FF00;" edge="1" parent="1" source="WoMaA5T-QToIn6mIG-1T-51" target="WoMaA5T-QToIn6mIG-1T-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-60" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="910" y="640" width="145" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-64" value="Flux d&#39;énergie" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="925" y="640" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-65" value="Flux d&#39;information" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="915" y="669" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-66" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#FF0000;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1020" y="657.5" as="sourcePoint" />
+            <mxPoint x="1050" y="657.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WoMaA5T-QToIn6mIG-1T-67" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#00FF00;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1020" y="683.87" as="sourcePoint" />
+            <mxPoint x="1050" y="683.87" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,23 @@
+Configuration de la raspi du robot cdr 2025
+
+https://www.freva.com/fr/attribuer-des-noms-de-port-usb-fixes-a-votre-raspberry-pi/
+
+
+
+python3 ~/Desktop/CdR-2024/Robot/Code/RASPI4/main.py
+
+
+cd /etc/udev/rules.d
+
+
+nano 10-usb-serial.rules  :
+
+SUBSYSTEM=="tty", ATTRS{interface}=="CP2102 USB to UART Bridge Controller", SYMLINK+="rplidar"
+SUBSYSTEM=="tty", ATTRS{serial}=="066FFF555775514867064207", SYMLINK+="actionneur"
+SUBSYSTEM=="tty", ATTRS{serial}=="066BFF485688494867113516", SYMLINK+="embase"
+
+
+
+
+
+Clavier virtuel: wvkbd-mobintl
