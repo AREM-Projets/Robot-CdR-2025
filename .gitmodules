@@ -1,0 +1,3 @@
+[submodule "Code/LIDAR/rplidar_sdk"]
+	path = Code/LIDAR/rplidar_sdk
+	url = https://github.com/Slamtec/rplidar_sdk
