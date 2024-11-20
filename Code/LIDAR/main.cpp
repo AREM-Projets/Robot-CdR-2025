@@ -1,3 +1,4 @@
+#include <ctime>
 #include <signal.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -85,8 +86,9 @@ int main()
     {
         size_t count = 8192;
         sl_lidar_response_measurement_node_hq_t nodes[count];
+        sl_u64 timestamp;
 
-        sl_result op_result = driver->grabScanDataHq(nodes, count);
+        sl_result op_result = driver->grabScanDataHqWithTimeStamp(nodes, count, timestamp);
 
         if (SL_IS_OK(op_result))
         {
