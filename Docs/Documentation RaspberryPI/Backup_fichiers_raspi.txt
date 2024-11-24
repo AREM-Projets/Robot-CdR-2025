@@ -1,23 +1,49 @@
-Configuration de la raspi du robot cdr 2025
+# Configuration de la raspi du robot cdr 2025
 
-https://www.freva.com/fr/attribuer-des-noms-de-port-usb-fixes-a-votre-raspberry-pi/
+## OS et paramétrage
+OS installé: Raspberrypi OS 64 bits
+Configuration de l'OS:
+- Nom d'hôte: cdr
+- Nom d'utilisateur: cdr
+- Mot de passe: cdr
+
+- Wifi: mon partage de connexion (SSID=nom du partage)
+- Pays Wifi: FR
+- Fuseau horaire: Europe/Paris
+- Type de clavier: fr
+
+- Service SSH activé, utilisation d'un mot de passe
 
 
 
-python3 ~/Desktop/CdR-2024/Robot/Code/RASPI4/main.py
+
+## Configuration des noms des ports usb:
+
+### Site avec toute la procédure: 
+nano 10-usb-serial.rules  : https://www.freva.com/fr/attribuer-des-noms-de-port-usb-fixes-a-votre-raspberry-pi/
+
+### Chemin du fichier à modifier
+$cd /etc/udev/rules.d
 
 
-cd /etc/udev/rules.d
-
-
-nano 10-usb-serial.rules  :
-
+### Contenu du fichier
+````
 SUBSYSTEM=="tty", ATTRS{interface}=="CP2102 USB to UART Bridge Controller", SYMLINK+="rplidar"
 SUBSYSTEM=="tty", ATTRS{serial}=="066FFF555775514867064207", SYMLINK+="actionneur"
 SUBSYSTEM=="tty", ATTRS{serial}=="066BFF485688494867113516", SYMLINK+="embase"
+````
 
 
 
 
+## Installation du clavier virtuel: 
+$sudo apt install wvkbd
+$wvkbd-mobintl
 
-Clavier virtuel: wvkbd-mobintl
+
+## Autres
+
+J'ai fait quelques modifs du bureau:
+- Fond écran noir pour y voir quelque chose
+- Barre des tâches en bas et en taille max
+- Retrait de tout sauf les périphériques branchés sur le bureau (l'écran est petit, moins il y en a mieux c'est. La présence des icônes des périphériques permet de vérifier que tout ce qui est branché est bien détecté par la PI)
