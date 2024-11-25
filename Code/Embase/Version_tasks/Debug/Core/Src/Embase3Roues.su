@@ -1,0 +1,23 @@
+../Core/Src/Embase3Roues.cpp:18:6:void Embase3Roues::init()	24	static
+../Core/Src/Embase3Roues.cpp:35:9:int32_t Embase3Roues::appendRelativeMove(double, double, double)	128	static
+../Core/Src/Embase3Roues.cpp:55:9:int32_t Embase3Roues::appendWait(uint32_t)	104	static
+../Core/Src/Embase3Roues.cpp:67:9:int32_t Embase3Roues::appendUart(uint8_t)	104	static
+../Core/Src/Embase3Roues.cpp:79:9:int32_t Embase3Roues::appendSpeedMove(double, double, double)	128	static
+../Core/Src/Embase3Roues.cpp:95:9:int32_t Embase3Roues::appendStop()	104	static
+../Core/Src/Embase3Roues.cpp:117:9:int32_t Embase3Roues::insertRelativeMove(double, double, double)	128	static
+../Core/Src/Embase3Roues.cpp:137:9:int32_t Embase3Roues::insertWait(uint32_t)	104	static
+../Core/Src/Embase3Roues.cpp:152:9:int32_t Embase3Roues::insertUart(uint8_t)	104	static
+../Core/Src/Embase3Roues.cpp:169:12:TaskType_t Embase3Roues::executeInstruction()	72	static
+../Core/Src/Embase3Roues.cpp:219:9:int32_t Embase3Roues::getCurrentIndex()	16	static
+../Core/Src/Embase3Roues.cpp:227:12:TaskType_t Embase3Roues::getCurrentType()	16	static
+../Core/Src/Embase3Roues.cpp:236:6:void copyTask(Task_t&, Task_t&)	16	static
+../Core/Src/Embase3Roues.cpp:246:6:void initTask(Task_t&)	16	static
+../Core/Src/Embase3Roues.cpp:256:9:int32_t Embase3Roues::appendInstruction(Task_t)	16	static
+../Core/Src/Embase3Roues.cpp:274:9:int32_t Embase3Roues::insertInstruction(Task_t)	24	static
+../Core/Src/Embase3Roues.cpp:297:6:void Embase3Roues::setStep(double, double, double)	136	static
+../Core/Src/Embase3Roues.cpp:346:6:void Embase3Roues::translate(double, double)	72	static
+../Core/Src/Embase3Roues.cpp:414:6:void Embase3Roues::rotate(double)	24	static
+../Core/Src/Embase3Roues.cpp:418:6:void Embase3Roues::moveRelative(double, double, double)	40	static
+../Core/Src/Embase3Roues.cpp:426:6:void Embase3Roues::wait(uint32_t)	16	static
+../Core/Src/Embase3Roues.cpp:446:6:void Embase3Roues::moveSpeed(double, double, double)	96	static
+../Core/Src/Embase3Roues.cpp:464:6:void Embase3Roues::stop()	16	static

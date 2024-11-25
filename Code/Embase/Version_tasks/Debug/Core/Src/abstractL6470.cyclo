@@ -1,0 +1,3 @@
+../Core/Src/abstractL6470.cpp:7:1:abstractL6470::abstractL6470()	1
+../Core/Src/abstractL6470.cpp:12:1:abstractL6470::~abstractL6470()	1
+../Core/Src/abstractL6470.cpp:12:1:virtual abstractL6470::~abstractL6470()	1
