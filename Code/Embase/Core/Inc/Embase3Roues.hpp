@@ -30,6 +30,7 @@ enum TaskType_t
 	NONE,
 	WAIT,
 	MOVE_RELATIVE,
+	MOVE_SPEED,
 	UART_SEND
 };
 
@@ -55,6 +56,7 @@ public:
 	using BlocMoteurs::BlocMoteurs;
 	void init();
 
+	int32_t appendSpeedMove(double vx, double vy, double wz);
 	int32_t appendRelativeMove(double x, double y, double theta);
 	int32_t appendWait(uint32_t delay_ms = 0);
 	int32_t appendUart(uint8_t c);
@@ -79,13 +81,16 @@ private:
 	int32_t insertInstruction(Task_t task);
 
 	// Movement related, used by moveRelative()
+
 	void setStep(double x, double y, double theta);
 	void translate(double x, double y);
 	void rotate(double theta);
 
 	// Functions linked to tasks
+	void moveSpeed(double vx, double vy, double wz);
 	void moveRelative(double x, double y, double theta);
 	void wait(uint32_t delay_ms);
+	void stop(void);
 };
 
 void copyTask(Task_t &dest, Task_t &src);

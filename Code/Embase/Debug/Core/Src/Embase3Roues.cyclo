@@ -2,18 +2,21 @@
 ../Core/Src/Embase3Roues.cpp:35:9:int32_t Embase3Roues::appendRelativeMove(double, double, double)	1
 ../Core/Src/Embase3Roues.cpp:55:9:int32_t Embase3Roues::appendWait(uint32_t)	1
 ../Core/Src/Embase3Roues.cpp:67:9:int32_t Embase3Roues::appendUart(uint8_t)	1
-../Core/Src/Embase3Roues.cpp:87:9:int32_t Embase3Roues::insertRelativeMove(double, double, double)	1
-../Core/Src/Embase3Roues.cpp:107:9:int32_t Embase3Roues::insertWait(uint32_t)	1
-../Core/Src/Embase3Roues.cpp:119:9:int32_t Embase3Roues::insertUart(uint8_t)	1
-../Core/Src/Embase3Roues.cpp:136:12:TaskType_t Embase3Roues::executeInstruction()	5
-../Core/Src/Embase3Roues.cpp:178:9:int32_t Embase3Roues::getCurrentIndex()	1
-../Core/Src/Embase3Roues.cpp:186:12:TaskType_t Embase3Roues::getCurrentType()	1
-../Core/Src/Embase3Roues.cpp:195:6:void copyTask(Task_t&, Task_t&)	1
-../Core/Src/Embase3Roues.cpp:205:6:void initTask(Task_t&)	1
-../Core/Src/Embase3Roues.cpp:215:9:int32_t Embase3Roues::appendInstruction(Task_t)	3
-../Core/Src/Embase3Roues.cpp:233:9:int32_t Embase3Roues::insertInstruction(Task_t)	3
-../Core/Src/Embase3Roues.cpp:256:6:void Embase3Roues::setStep(double, double, double)	10
-../Core/Src/Embase3Roues.cpp:305:6:void Embase3Roues::translate(double, double)	12
-../Core/Src/Embase3Roues.cpp:373:6:void Embase3Roues::rotate(double)	1
-../Core/Src/Embase3Roues.cpp:377:6:void Embase3Roues::moveRelative(double, double, double)	1
-../Core/Src/Embase3Roues.cpp:385:6:void Embase3Roues::wait(uint32_t)	3
+../Core/Src/Embase3Roues.cpp:79:9:int32_t Embase3Roues::appendSpeedMove(double, double, double)	1
+../Core/Src/Embase3Roues.cpp:107:9:int32_t Embase3Roues::insertRelativeMove(double, double, double)	1
+../Core/Src/Embase3Roues.cpp:127:9:int32_t Embase3Roues::insertWait(uint32_t)	1
+../Core/Src/Embase3Roues.cpp:139:9:int32_t Embase3Roues::insertUart(uint8_t)	1
+../Core/Src/Embase3Roues.cpp:156:12:TaskType_t Embase3Roues::executeInstruction()	6
+../Core/Src/Embase3Roues.cpp:202:9:int32_t Embase3Roues::getCurrentIndex()	1
+../Core/Src/Embase3Roues.cpp:210:12:TaskType_t Embase3Roues::getCurrentType()	1
+../Core/Src/Embase3Roues.cpp:219:6:void copyTask(Task_t&, Task_t&)	1
+../Core/Src/Embase3Roues.cpp:229:6:void initTask(Task_t&)	1
+../Core/Src/Embase3Roues.cpp:239:9:int32_t Embase3Roues::appendInstruction(Task_t)	3
+../Core/Src/Embase3Roues.cpp:257:9:int32_t Embase3Roues::insertInstruction(Task_t)	3
+../Core/Src/Embase3Roues.cpp:280:6:void Embase3Roues::setStep(double, double, double)	10
+../Core/Src/Embase3Roues.cpp:329:6:void Embase3Roues::translate(double, double)	12
+../Core/Src/Embase3Roues.cpp:397:6:void Embase3Roues::rotate(double)	1
+../Core/Src/Embase3Roues.cpp:401:6:void Embase3Roues::moveRelative(double, double, double)	1
+../Core/Src/Embase3Roues.cpp:409:6:void Embase3Roues::wait(uint32_t)	3
+../Core/Src/Embase3Roues.cpp:429:6:void Embase3Roues::moveSpeed(double, double, double)	1
+../Core/Src/Embase3Roues.cpp:443:6:void Embase3Roues::stop()	1

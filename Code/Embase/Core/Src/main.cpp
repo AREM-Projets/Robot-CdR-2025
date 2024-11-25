@@ -164,18 +164,20 @@ int main(void) {
 			reset_shield_2_GPIO_Port, reset_shield_2_Pin, ssel2_GPIO_Port,
 			ssel2_Pin);
 
-	//Set microstepping to 128 for smooth rotations
-	// moteurs->set_microstepping_mode(step_mode_t::STEP_MODE_HALF);
-	// moteurs->set_max_speed_moteurs(W_MAX); //Vitesse de rotation max des moteur pour eviter erreur en position
 
 	embase->set_microstepping_mode(step_mode_t::STEP_MODE_HALF);
 	embase->set_max_speed_moteurs(W_MAX);
-	//Set max acc to 1 rad/s^2
-	//moteurs->set_max_acc_moteurs(1);
-	//embase->commande_step_indiv(100, FWD, 100, FWD, 100, FWD, 0, FWD);
-	setDefaultInstructions(embase);
+
+	embase->appendUart('R');
+	embase->appendWait(0);
+	embase->appendRelativeMove(1, 0, 0);
+	embase->appendWait(0);
+	embase->appendSpeedMove(10, 0, 0);
+
+
+
 	movement_allowed = false;// TODO: false not true !!!
-	robot_started = false; // TODO: false not true !!!
+	robot_started = true; // TODO: false not true !!!
 	// Wait for "s" to start
 
 	//HAL_UART_Transmit(&huart2, (uint8_t *) "Init OK\n", 8*sizeof(char), 1000);
@@ -185,13 +187,13 @@ int main(void) {
 	/* USER CODE BEGIN WHILE */
 	while (1) {
 		// Pas touche
-		if (init_requested)
-		{
-			init_requested = false;
-			setDefaultInstructions(embase);
-			robot_started = false;
-			//HAL_UART_Transmit(&huart2, (uint8_t *) "Init OK\n", 8*sizeof(char), 1000);
-		}
+//		if (init_requested)
+//		{
+//			init_requested = false;
+//			setDefaultInstructions(embase);
+//			robot_started = false;
+//			//HAL_UART_Transmit(&huart2, (uint8_t *) "Init OK\n", 8*sizeof(char), 1000);
+//		}
 
 		if(robot_started){
 			embase->executeInstruction();

@@ -76,6 +76,26 @@ int32_t Embase3Roues::appendUart(uint8_t c){
 	return res;
 }
 
+int32_t Embase3Roues::appendSpeedMove(double vx, double vy, double wz)
+{
+	Task_t task;
+	initTask(task);
+
+	task.type = MOVE_SPEED;
+
+	task.x = vx;
+	task.y = vy;
+	task.theta = wz;
+
+	int32_t res = appendInstruction(task);
+	return res;
+}
+
+
+
+
+
+
 /**
  * @brief Insert a movement task as the next task
  *
@@ -149,6 +169,10 @@ TaskType_t Embase3Roues::executeInstruction() {
 	switch (type) {
 	case NONE:
 		// Do nothing...
+		break;
+
+	case MOVE_SPEED:
+		moveSpeed(current_task.x, current_task.y, current_task.theta);
 		break;
 
 	case MOVE_RELATIVE:
@@ -392,5 +416,32 @@ void Embase3Roues::wait(uint32_t delay_ms) {
 	else{
 		HAL_Delay(delay_ms);
 	}
+}
+
+
+
+
+
+
+
+/*Fonctions pour la commande en vitesse*/
+
+void Embase3Roues::moveSpeed(double vx, double vy, double wz)
+{
+	const double d = 0.13; //m
+	//calcul des vitesses
+	double Vaf = 0.5*vx - sqrt(3)/2*vy - d*wz;
+	double Vbf = 0.5*vx + sqrt(3)/2*vy - d*wz;
+	double Vcf = -vx - d*wz;
+
+	//pilotage des moteurs
+	motors_on();
+	commande_vitesses_normalisees(1, 0, 0, 0);
+}
+
+
+void Embase3Roues::stop(void)
+{
+	motors_stop_hard();
 }
 
