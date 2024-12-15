@@ -26,7 +26,7 @@
 #include <stdio.h>
 #include "XNucleoIHM02A1.h"
 #include "BlocMoteurs.hpp"
-#include "Embase3Roues.hpp"
+//#include "Embase3Roues.hpp"
 #include <math.h>
 #include <sys/wait.h>
 
@@ -39,7 +39,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define STEPPER_STEP_MODE STEP_MODE_1_32
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -67,8 +67,12 @@ bool timeout_moteurs = false;
 
 //Class handling motors
 BlocMoteurs *moteurs;
-Embase3Roues *embase;
+//Embase3Roues *embase;
 
+volatile int32_t* mesures;
+volatile double deplacement[2] = {0, 0};
+double distance_per_elementary_step = (DEG_PER_FULL_STEP*M_PI/180)/std::pow((float)2, (float)(STEPPER_STEP_MODE)) * 29/1000; //rayon roues: 29mm
+volatile bool transmit_pos = false;
 
 
 volatile bool motors_busy;
@@ -162,10 +166,11 @@ int main(void) {
 			reset_shield_2_GPIO_Port, reset_shield_2_Pin, ssel2_GPIO_Port,
 			ssel2_Pin);
 
-	moteurs->set_microstepping_mode(step_mode_t::STEP_MODE_HALF);
-	moteurs->set_max_speed_moteurs(W_MAX);
-
-
+	moteurs->set_microstepping_mode(step_mode_t::STEPPER_STEP_MODE);
+////	moteurs->set_max_speed_moteurs(W_MAX);
+//
+//	moteurs->set_max_acc_moteurs(5.0, 5.0, 5.0, 5.0);
+//	moteurs->set_max_dec_moteurs(5.0, 5.0, 5.0, 5.0);
 
 
 
@@ -178,6 +183,18 @@ int main(void) {
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	while (1) {
+		if(transmit_pos) {
+			mesures = moteurs->mesure_pas_ecoule();
+
+			deplacement[0] = cos(M_PI/6) * (double)(mesures[0]*distance_per_elementary_step + mesures[3]*distance_per_elementary_step);
+			deplacement[1] = sin(M_PI/6) * (double)(mesures[0]*distance_per_elementary_step - mesures[3]*distance_per_elementary_step) - (double)(mesures[2]*distance_per_elementary_step);
+
+			char message[50] = "";
+			sprintf(message, "%f %f \n", deplacement[0], deplacement[1]); // message pos
+			//sprintf(message, "%ld %ld %ld\n            ", mesures[3], mesures[2], mesures[0]); //message raw values
+			HAL_UART_Transmit(&huart2, (uint8_t*)message, sizeof(message), HAL_MAX_DELAY);
+			transmit_pos = false;
+		}
 
 		/* USER CODE END WHILE */
 
@@ -704,15 +721,28 @@ static void MX_GPIO_Init(void) {
 
 void moveSpeed(double vx, double vy, double wz)
 {
+	//old
+//	const double d = 0.13; //m
+//	//calcul des vitesses
+//	double Vaf = 0.5*vy - sqrt(3)/2*vx - d*wz;
+//	double Vbf = 0.5*vy + sqrt(3)/2*vx - d*wz;
+//	double Vcf = -vy - d*wz;
+//
+//	//pilotage des moteurs
+//	moteurs->motors_on();
+//	moteurs->commande_vitesses_absolues(Vaf, -Vcf, Vbf, 0);
+
+
+
 	const double d = 0.13; //m
 	//calcul des vitesses
-	double Vaf = 0.5*vy - sqrt(3)/2*vx - d*wz;
-	double Vbf = 0.5*vy + sqrt(3)/2*vx - d*wz;
-	double Vcf = -vy - d*wz;
+	double Vm1 = -(0.5*vy - sqrt(3)/2*vx - d*wz);
+	double Vm3 = 0.5*vy + sqrt(3)/2*vx - d*wz;
+	double Vm2 = (-vy - d*wz);
 
 	//pilotage des moteurs
 	moteurs->motors_on();
-	moteurs->commande_vitesses_absolues(Vaf, -Vcf, Vbf, 0);
+	moteurs->commande_vitesses_absolues(Vm3, 0, Vm2, Vm1);
 }
 
 
@@ -768,6 +798,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 		case '9':
 			moveSpeed(0, 0, 20);
 			break;
+
+		case '0':
+			transmit_pos = true;
+			break;
+
+
 
 
 		default:

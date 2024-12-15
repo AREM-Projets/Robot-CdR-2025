@@ -9,9 +9,8 @@
 #include "config.hpp"
 
 
-#define CANONICAL_DIR
 #define NMOTEURS 4
-#define XMECANUM_SHAPE
+
 
 
 
@@ -39,31 +38,13 @@ class BlocMoteurs
 				GPIO_TypeDef* standby_reset_port_shield_2  ,uint16_t standby_reset_pin_shield_2 ,GPIO_TypeDef* ssel_port_shield_2 , uint16_t ssel_pin_shield_2
 		);
 		~BlocMoteurs();
-		bool moteurs_arret;
+
 		/* Mouvements */
 
 		void commande_vitesses_normalisees(float vitesse_normalisee_FL, float vitesse_normalisee_FR, float vitesse_normalisee_BL, float vitesse_normalisee_BR );
 		void commande_vitesses_absolues(float vitesse_absolue_FL, float vitesse_absolue_FR, float vitesse_absolue_BL, float vitesse_absolue_BR );
 
-		void commande_step(unsigned int number_of_step, direction_t dir_FL ,direction_t dir_FR, direction_t dir_BL, direction_t dir_BR);
-		void commande_step_indiv(unsigned int number_of_step_FL, direction_t dir_FL ,unsigned int number_of_step_FR, direction_t dir_FR,unsigned int number_of_step_BL,  direction_t dir_BL,unsigned int number_of_step_BR, direction_t dir_BR);
-
-		void avancer_step( unsigned int number_of_step);
-		void reculer_step( unsigned int number_of_step);
-		void gauche_step( unsigned int number_of_step);
-		void droite_step( unsigned int number_of_step);
-
-		void avancer_vitesse_abs(float vitesses_roues_rad_par_sec);
-		void reculer_vitesse_abs(float vitesses_roues_rad_par_sec);
-		void gauche_vitesse_abs(float vitesses_roues_rad_par_sec);
-		void droite_vitesse_abs(float vitesses_roues_rad_par_sec);
-
-		void avancer_vitesse_normalisee(float vitesse_normalisee);
-		void reculer_vitesse_normalisee(float vitesse_normalisee);
-		void gauche_vitesse_normalisee(float vitesse_normalisee);
-		void droite_vitesse_normalisee(float vitesse_normalisee);
-
-
+		void commande_step(int number_of_step_FL, int number_of_step_FR, int number_of_step_BL, int number_of_step_BR);
 		/* Enable / Disable */
 		void motors_on();
 		void motors_stop_soft_hiz();
@@ -73,32 +54,37 @@ class BlocMoteurs
 
 
 		/* Configuration */
-		bool set_microstepping_mode(step_mode_t step_mode);
-		step_mode_t get_microstepping_mode() const {return (step_mode_t) initShield1[0].step_sel;}
 
-		void set_max_speed_moteurs(float radian_par_seconde);
-		void set_min_speed_moteurs(float radian_par_seconde);
-		void set_max_acc_moteurs(float radian_par_seconde2);
-		void set_max_dec_moteurs(float radian_par_seconde2);
+
+		void set_max_speed_moteurs(float vitesse_rad_s_FL, float vitesse_rad_s_FR, float vitesse_rad_s_BL, float vitesse_rad_s_BR);
+		void set_min_speed_moteurs(float vitesse_rad_s_FL, float vitesse_rad_s_FR, float vitesse_rad_s_BL, float vitesse_rad_s_BR);
+		void set_max_acc_moteurs(float acc_rad_s2_FL, float acc_rad_s2_FR, float acc_rad_s2_BL, float acc_rad_s2_BR);
+		void set_max_dec_moteurs(float dec_rad_s2_FL, float dec_rad_s2_FR, float dec_rad_s2_BL, float dec_rad_s2_BR);
 
 		/* Mesure */
 		float* mesure_vitesses_rad();
-		uint32_t * mesure_vitesses_step();
-		uint32_t * mesure_pas_ecoule();
+		int32_t * mesure_vitesses_step();
+		int32_t * mesure_pas_ecoule();
+
+		bool get_busy();
 
 
 		/* Misc */
 
-		void step_ceil();
+
 
 		float rad_to_step( float rad);
 		float step_to_rad( unsigned int step);
+
+
+		bool set_microstepping_mode(step_mode_t step_mode);
+
 	private:
 		void set_vitesse_moteur(unsigned int vitesse, StepperMotor::direction_t dir, id_moteurs id);
 		void set_step_moteur(unsigned int steps, StepperMotor::direction_t dir, id_moteurs id);
 
 
-		//bool moteurs_arret;
+		bool moteurs_arret;
 
 		// vitesse_max en pps
 		unsigned int max_vitesse;
@@ -106,6 +92,14 @@ class BlocMoteurs
 		XNucleoIHM02A1 *shield_1;  // pointeur d'une entité shield_moteur pour la carte de contôle des pas à pas
 		XNucleoIHM02A1 *shield_2;  // pointeur d'une entité shield_moteur pour la carte de contôle des pas à pas
 		abstractL6470 **moteurs;   // tableau de pointeur de moteur
+
+		id_moteurs index_to_enum[4]; //tableau de corerspondance entre tableau de pointeurs moteurs (abstractL6470 **moteurs;   // tableau de pointeur de moteur)
+		// et tableau de pointeurs moteurs dans l'odre [shield_1_moteur0, shield_1_moteur1, shield_2_moteur0,shield_2_moteur01
+
+
+																						
+		float motor_direction_inverter[4];
+
 
 		uint32_t* last_read_value;
 
