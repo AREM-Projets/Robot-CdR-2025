@@ -21,14 +21,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-//#include <string.h>
 #include <stdlib.h>
-//#include <stdio.h>
-//#include "XNucleoIHM02A1.h"
 #include "BlocMoteurs.hpp"
-//#include "Embase3Roues.hpp"
 #include <math.h>
-//#include <sys/wait.h>
 
 /* USER CODE END Includes */
 
@@ -63,7 +58,8 @@ UART_HandleTypeDef huart3;
 BlocMoteurs *moteurs;
 
 volatile int32_t* mesures;
-volatile double deplacement[2] = {0, 0};
+volatile double deplacement[2] = {0, 0}; //deplacement du robot par rapport au dernier appel de position
+volatile double position[2] = {0, 0}; // position du robot par rapport au point de depart
 volatile bool transmit_pos = false;
 volatile bool motors_busy;
 
@@ -134,7 +130,7 @@ int main(void) {
 	/* USER CODE BEGIN 2 */
 
 	//Start Timer2 interrupt (every 20 ms here)
-//	HAL_TIM_Base_Start_IT(&htim2);
+	HAL_TIM_Base_Start_IT(&htim2);
 
 	HAL_UART_Receive_IT(&huart2, &uart_received_char, sizeof(uint8_t));
 
@@ -147,9 +143,8 @@ int main(void) {
 			ssel2_Pin);
 
 	moteurs->set_microstepping_mode(step_mode_t::STEPPER_STEP_MODE);
-//
-//	moteurs->set_max_acc_moteurs(5.0, 5.0, 5.0, 5.0);
-//	moteurs->set_max_dec_moteurs(5.0, 5.0, 5.0, 5.0);
+	moteurs->set_max_acc_moteurs(5.0, 5.0, 5.0, 5.0);
+	moteurs->set_max_dec_moteurs(5.0, 5.0, 5.0, 5.0);
 
 
 	/* USER CODE END 2 */
@@ -158,16 +153,24 @@ int main(void) {
 	/* USER CODE BEGIN WHILE */
 	while (1) {
 		if(transmit_pos) {
+			transmit_pos = false;
+
+			//calcul du deplacement
 			mesures = moteurs->mesure_pas_ecoule();
 
 			deplacement[0] = cos(M_PI/6) * (double)(mesures[0]*distance_per_elementary_step + mesures[3]*distance_per_elementary_step);
 			deplacement[1] = sin(M_PI/6) * (double)(mesures[0]*distance_per_elementary_step - mesures[3]*distance_per_elementary_step) - (double)(mesures[2]*distance_per_elementary_step);
 
-			char message[50] = "";
-			sprintf(message, "%f %f \n", deplacement[0], deplacement[1]); // message pos
-			//sprintf(message, "%ld %ld %ld\n            ", mesures[3], mesures[2], mesures[0]); //message raw values
+			//calcul de la position
+			position[0] += deplacement[0];
+			position[1] += deplacement[1];
+
+			char message[20] = "";
+
+			sprintf(message, "%.4f %.4f\n", position[0], position[1]); // message pos
+			//sprintf(message, "%f %f \n", deplacement[0], deplacement[1]); // message depl
+			//sprintf(message, "%ld %ld %ld\n", mesures[3], mesures[2], mesures[0]); //message raw values
 			HAL_UART_Transmit(&huart2, (uint8_t*)message, sizeof(message), HAL_MAX_DELAY);
-			transmit_pos = false;
 		}
 
 		/* USER CODE END WHILE */
@@ -722,17 +725,13 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 }
 
 //Redirect Uart callback to msg_handler if huart is huart2 peripheral
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
-
-}
-
-//Redirect Uart callback to msg_handler if huart is huart2 peripheral
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	if(huart->Instance == USART2)
 	{
 		switch(uart_received_char)
 		{
 		case '5':
+			if(motors_busy) transmit_pos = true;
 			stop();
 			break;
 
@@ -776,6 +775,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	}
 }
 
+//timers callbacks
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+	if(htim == &htim2) {
+		transmit_pos = true;
+	}
+}
 
 /* USER CODE END 4 */
 
