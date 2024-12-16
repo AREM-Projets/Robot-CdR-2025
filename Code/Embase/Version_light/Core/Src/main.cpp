@@ -21,14 +21,14 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <string.h>
+//#include <string.h>
 #include <stdlib.h>
-#include <stdio.h>
-#include "XNucleoIHM02A1.h"
+//#include <stdio.h>
+//#include "XNucleoIHM02A1.h"
 #include "BlocMoteurs.hpp"
 //#include "Embase3Roues.hpp"
 #include <math.h>
-#include <sys/wait.h>
+//#include <sys/wait.h>
 
 /* USER CODE END Includes */
 
@@ -60,35 +60,15 @@ TIM_HandleTypeDef htim8;
 UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
 /* USER CODE BEGIN PV */
-
-//Flag to control a timeout state
-//Timeout occurs if no data was received from serial in a long time
-bool timeout_moteurs = false;
-
-//Class handling motors
 BlocMoteurs *moteurs;
-//Embase3Roues *embase;
 
 volatile int32_t* mesures;
 volatile double deplacement[2] = {0, 0};
-double distance_per_elementary_step = (DEG_PER_FULL_STEP*M_PI/180)/std::pow((float)2, (float)(STEPPER_STEP_MODE)) * 29/1000; //rayon roues: 29mm
 volatile bool transmit_pos = false;
-
-
 volatile bool motors_busy;
-volatile bool movement_allowed;
-volatile bool robot_started;
-volatile bool init_requested = false;
 
-//INIT
-volatile bool get_out_step = false;
-//Strayegie
-volatile uint8_t equipe = BLEU;//Calibration Default
-volatile uint8_t nb_panneaux = 3;
+double distance_per_elementary_step = (DEG_PER_FULL_STEP*M_PI/180)/std::pow((float)2, (float)(STEPPER_STEP_MODE)) * 29/1000; //rayon roues: 29mm
 
-
-volatile unsigned int compteur = 0;
-volatile uint8_t num_tache = 0;
 uint8_t uart_received_char;
 
 /* USER CODE END PV */
@@ -154,7 +134,7 @@ int main(void) {
 	/* USER CODE BEGIN 2 */
 
 	//Start Timer2 interrupt (every 20 ms here)
-	HAL_TIM_Base_Start_IT(&htim2);
+//	HAL_TIM_Base_Start_IT(&htim2);
 
 	HAL_UART_Receive_IT(&huart2, &uart_received_char, sizeof(uint8_t));
 
@@ -167,16 +147,10 @@ int main(void) {
 			ssel2_Pin);
 
 	moteurs->set_microstepping_mode(step_mode_t::STEPPER_STEP_MODE);
-////	moteurs->set_max_speed_moteurs(W_MAX);
 //
 //	moteurs->set_max_acc_moteurs(5.0, 5.0, 5.0, 5.0);
 //	moteurs->set_max_dec_moteurs(5.0, 5.0, 5.0, 5.0);
 
-
-
-
-	movement_allowed = true;// TODO: false not true !!!
-	robot_started = true; // TODO: false not true !!!
 
 	/* USER CODE END 2 */
 
@@ -721,19 +695,6 @@ static void MX_GPIO_Init(void) {
 
 void moveSpeed(double vx, double vy, double wz)
 {
-	//old
-//	const double d = 0.13; //m
-//	//calcul des vitesses
-//	double Vaf = 0.5*vy - sqrt(3)/2*vx - d*wz;
-//	double Vbf = 0.5*vy + sqrt(3)/2*vx - d*wz;
-//	double Vcf = -vy - d*wz;
-//
-//	//pilotage des moteurs
-//	moteurs->motors_on();
-//	moteurs->commande_vitesses_absolues(Vaf, -Vcf, Vbf, 0);
-
-
-
 	const double d = 0.13; //m
 	//calcul des vitesses
 	double Vm1 = -(0.5*vy - sqrt(3)/2*vx - d*wz);
@@ -800,7 +761,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 			break;
 
 		case '0':
-			transmit_pos = true;
+			transmit_pos = true; //trigger le calcul de la position et son envoi par uart
 			break;
 
 
@@ -815,10 +776,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	}
 }
 
-//Timer 2 interrupt (every 20ms)
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-
-}
 
 /* USER CODE END 4 */
 
