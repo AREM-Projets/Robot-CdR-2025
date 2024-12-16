@@ -35,6 +35,10 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define STEPPER_STEP_MODE STEP_MODE_1_32
+#define MAXACC 10.0
+#define RAYON_ROUES 29.0/1000.0 //m
+#define RAYON_EMBASE 0.14 //m
+#define DEPL_CORR_COEFF 1.4//1.4 ?
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -63,7 +67,7 @@ volatile double position[2] = {0, 0}; // position du robot par rapport au point 
 volatile bool transmit_pos = false;
 volatile bool motors_busy;
 
-double distance_per_elementary_step = (DEG_PER_FULL_STEP*M_PI/180)/std::pow((float)2, (float)(STEPPER_STEP_MODE)) * 29/1000; //rayon roues: 29mm
+double distance_per_elementary_step = (DEG_PER_FULL_STEP*M_PI/180)/std::pow((float)2, (float)(STEPPER_STEP_MODE)) * RAYON_ROUES; //rayon roues: 29mm
 
 uint8_t uart_received_char;
 
@@ -143,8 +147,8 @@ int main(void) {
 			ssel2_Pin);
 
 	moteurs->set_microstepping_mode(step_mode_t::STEPPER_STEP_MODE);
-	moteurs->set_max_acc_moteurs(5.0, 5.0, 5.0, 5.0);
-	moteurs->set_max_dec_moteurs(5.0, 5.0, 5.0, 5.0);
+	moteurs->set_max_acc_moteurs(MAXACC, MAXACC, MAXACC, MAXACC);
+	moteurs->set_max_dec_moteurs(MAXACC, MAXACC, MAXACC, MAXACC);
 
 
 	/* USER CODE END 2 */
@@ -157,13 +161,16 @@ int main(void) {
 
 			//calcul du deplacement
 			mesures = moteurs->mesure_pas_ecoule();
+			double dm1 = (double)(mesures[3]*distance_per_elementary_step);
+			double dm2 = (double)(mesures[2]*distance_per_elementary_step);
+			double dm3 = (double)(mesures[0]*distance_per_elementary_step);
 
-			deplacement[0] = cos(M_PI/6) * (double)(mesures[0]*distance_per_elementary_step + mesures[3]*distance_per_elementary_step);
-			deplacement[1] = sin(M_PI/6) * (double)(mesures[0]*distance_per_elementary_step - mesures[3]*distance_per_elementary_step) - (double)(mesures[2]*distance_per_elementary_step);
+			deplacement[0] = cos(M_PI/6) * (dm3 + dm1);
+			deplacement[1] = sin(M_PI/6) * (dm3 - dm1) - dm2;
 
 			//calcul de la position
-			position[0] += deplacement[0];
-			position[1] += deplacement[1];
+			position[0] += deplacement[0] / DEPL_CORR_COEFF;
+			position[1] += deplacement[1] / DEPL_CORR_COEFF;
 
 			char message[20] = "";
 
@@ -763,7 +770,10 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 			transmit_pos = true; //trigger le calcul de la position et son envoi par uart
 			break;
 
-
+		case '.':
+			position[0] = 0;
+			position[1] = 0;
+			break;
 
 
 		default:
