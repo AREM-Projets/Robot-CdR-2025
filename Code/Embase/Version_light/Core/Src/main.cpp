@@ -62,8 +62,8 @@ UART_HandleTypeDef huart3;
 BlocMoteurs *moteurs;
 
 volatile int32_t* mesures;
-volatile double deplacement[2] = {0, 0}; //deplacement du robot par rapport au dernier appel de position
-volatile double position[2] = {0, 0}; // position du robot par rapport au point de depart
+volatile double deplacement[] = {0, 0, 0}; //deplacement du robot par rapport au dernier appel de position
+volatile double position[] = {0, 0, 0}; // position du robot par rapport au point de depart
 volatile bool transmit_pos = false;
 volatile bool motors_busy;
 
@@ -165,17 +165,21 @@ int main(void) {
 			double dm2 = (double)(mesures[2]*distance_per_elementary_step);
 			double dm3 = (double)(mesures[0]*distance_per_elementary_step);
 
-			deplacement[0] = cos(M_PI/6) * (dm3 + dm1);
-			deplacement[1] = sin(M_PI/6) * (dm3 - dm1) - dm2;
+			//deplacement dans le referentiel robot
+			deplacement[0] = cos(M_PI/6) * (dm3 + dm1);			//dx
+			deplacement[1] = sin(M_PI/6) * (dm3 - dm1) - dm2;	//dy
+			deplacement[2] = (dm3-dm1+dm2)/3 / RAYON_EMBASE;				//dtheta
 
-			//calcul de la position
-			position[0] += deplacement[0] / DEPL_CORR_COEFF;
-			position[1] += deplacement[1] / DEPL_CORR_COEFF;
+			//calcul de la position dans le referentiel table
+			position[2] += deplacement[2]; //angle
+			position[0] += (deplacement[0]*cos(position[2]) + deplacement[1]*sin(position[2])) / DEPL_CORR_COEFF; //px
+			position[1] += (deplacement[1]*cos(position[2]) - deplacement[0]*sin(position[2])) / DEPL_CORR_COEFF; //py
 
-			char message[20] = "";
 
-			sprintf(message, "%.4f %.4f\n", position[0], position[1]); // message pos
-			//sprintf(message, "%f %f \n", deplacement[0], deplacement[1]); // message depl
+			char message[100] = "";
+
+			sprintf(message, "%.4f %.4f %.4f\n", position[0], position[1], position[2]); // message pos
+			//sprintf(message, "%f %f %f\n", deplacement[0], deplacement[1], deplacement[2]); // message depl
 			//sprintf(message, "%ld %ld %ld\n", mesures[3], mesures[2], mesures[0]); //message raw values
 			HAL_UART_Transmit(&huart2, (uint8_t*)message, sizeof(message), HAL_MAX_DELAY);
 		}
@@ -773,6 +777,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 		case '.':
 			position[0] = 0;
 			position[1] = 0;
+			position[2] = 0;
 			break;
 
 
