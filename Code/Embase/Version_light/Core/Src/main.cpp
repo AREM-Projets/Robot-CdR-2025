@@ -36,9 +36,13 @@
 /* USER CODE BEGIN PD */
 #define STEPPER_STEP_MODE STEP_MODE_1_32
 #define MAXACC 10.0
-#define RAYON_ROUES 29.0/1000.0 //m
+#define RAYON_ROUES 0.029 //m
 #define RAYON_EMBASE 0.14 //m
 #define DEPL_CORR_COEFF 1.4//1.4 ?
+#define MAX_SPEED M_PI/2
+
+#define COMMANDE_VITESSE
+//#define COMMANDE_POSITION
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -59,6 +63,12 @@ TIM_HandleTypeDef htim8;
 UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
 /* USER CODE BEGIN PV */
+volatile double posM1;
+volatile double posM2;
+volatile double posM3;
+
+
+
 BlocMoteurs *moteurs;
 
 volatile int32_t* mesures;
@@ -88,7 +98,9 @@ static void MX_TIM6_Init(void);
 
 
 /* USER CODE BEGIN PFP */
-
+void movePos(double dx, double dy, double theta);
+void moveSpeed(double vx, double vy, double wz);
+void stop();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -149,7 +161,7 @@ int main(void) {
 	moteurs->set_microstepping_mode(step_mode_t::STEPPER_STEP_MODE);
 	moteurs->set_max_acc_moteurs(MAXACC, MAXACC, MAXACC, MAXACC);
 	moteurs->set_max_dec_moteurs(MAXACC, MAXACC, MAXACC, MAXACC);
-
+	moteurs->set_max_speed_moteurs(MAX_SPEED, MAX_SPEED, MAX_SPEED, MAX_SPEED);
 
 	/* USER CODE END 2 */
 
@@ -705,6 +717,53 @@ static void MX_GPIO_Init(void) {
 }
 
 /* USER CODE BEGIN 4 */
+//void movePos(double dx, double dy, double theta) {
+//	double coef = std::pow((float)2, (float)(STEPPER_STEP_MODE));
+//
+//	posM1 = ( (0.5 * dy/RAYON_ROUES + sqrt(3)/2 * dx/RAYON_ROUES - RAYON_EMBASE/RAYON_ROUES*theta) / (DEG_PER_FULL_STEP*M_PI/180) *coef);
+//	posM2 = ( (-dy/RAYON_ROUES - RAYON_EMBASE/RAYON_ROUES*theta) / (DEG_PER_FULL_STEP*M_PI/180) *coef);
+//	posM3 = ( (0.5 * dy/RAYON_ROUES + sqrt(3)/2 * dx/RAYON_ROUES - RAYON_EMBASE/RAYON_ROUES*theta) / (DEG_PER_FULL_STEP*M_PI/180) *coef);
+//
+//	moteurs->motors_on();
+//	moteurs->commande_step(-posM3, 0, posM2, posM1);
+////	moteurs->commande_step(100*std::pow((float)2, (float)(STEPPER_STEP_MODE)), 0, 0, 0);
+//
+//}
+
+
+void movePos(double dx, double dy, double theta) {
+	double px = position[0];
+	double py = position[1];
+	double pw = position[2];
+
+	double vx = 0;
+	double vy = 0;
+	double wz = 0;
+
+	if(dx > 0) vx = 5;
+	else if(dx < 0) vx = -5;
+
+	if(dy > 0) vy = 5;
+	else if(dy < 0) vy = -5;
+
+	if(theta > 0) wz = -10;
+	else if(theta < 0) wz = 10;
+
+	moveSpeed(vx, 0, 0);
+
+	while (fabs(position[0] - dx) > 0.1) {;}
+
+	moveSpeed(0, vy, 0);
+
+	while (fabs(position[1] - dy) > 0.1) {;}
+
+	moveSpeed(0, 0, wz);
+
+	while (fabs(position[2] - theta) > 0.1) {;}
+
+	stop();
+}
+
 
 
 void moveSpeed(double vx, double vy, double wz)
@@ -741,6 +800,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	{
 		switch(uart_received_char)
 		{
+#ifdef COMMANDE_VITESSE
 		case '5':
 			if(motors_busy) transmit_pos = true;
 			stop();
@@ -769,6 +829,40 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 		case '9':
 			moveSpeed(0, 0, 20);
 			break;
+#endif
+
+
+#ifdef COMMANDE_POSITION
+		case '5':
+			if(motors_busy) transmit_pos = true;
+			stop();
+			break;
+
+		case '8':
+			movePos(1, 0, 0);
+			break;
+
+		case '2':
+			movePos(-1, 0, 0);
+			break;
+
+		case '4':
+			movePos(0, 1, 0);
+			break;
+
+		case '6':
+			movePos(0, -1, 0);
+			break;
+
+		case '7':
+			movePos(0, 0, 1);
+			break;
+
+		case '9':
+			movePos(0, 0, -1);
+			break;
+#endif
+
 
 		case '0':
 			transmit_pos = true; //trigger le calcul de la position et son envoi par uart
@@ -779,7 +873,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 			position[1] = 0;
 			position[2] = 0;
 			break;
-
 
 		default:
 			break;
