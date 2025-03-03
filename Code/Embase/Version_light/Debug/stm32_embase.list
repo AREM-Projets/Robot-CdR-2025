@@ -37,15 +37,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  000281f4  00000000  00000000  0004d27b  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0001ddbd  00000000  00000000  0007546f  2**0
+ 17 .debug_line   0001d5ce  00000000  00000000  0007546f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000e4a19  00000000  00000000  0009322c  2**0
+ 18 .debug_str    000e4a19  00000000  00000000  00092a3d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  00177c45  2**0
+ 19 .comment      00000086  00000000  00000000  00177456  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  0000b0d8  00000000  00000000  00177c88  2**2
+ 20 .debug_frame  0000b0d8  00000000  00000000  001774dc  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000075  00000000  00000000  00182d60  2**0
+ 21 .debug_line_str 00000075  00000000  00000000  001825b4  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -27481,12 +27481,12 @@ void moveSpeed(double vx, double vy, double wz)
  800d2a8:	ed87 0b04 	vstr	d0, [r7, #16]
  800d2ac:	ed87 1b02 	vstr	d1, [r7, #8]
  800d2b0:	ed87 2b00 	vstr	d2, [r7]
-	const double d = 0.13; //m
+	const double d = 0.14; //m
  800d2b4:	a35a      	add	r3, pc, #360	@ (adr r3, 800d420 <_Z9moveSpeedddd+0x180>)
  800d2b6:	e9d3 2300 	ldrd	r2, r3, [r3]
  800d2ba:	e9c7 230c 	strd	r2, r3, [r7, #48]	@ 0x30
 	//calcul des vitesses
-	double Vm1 = -(0.5*vy - sqrt(3)/2*vx - d*wz);
+	double Vm1 = 0.5*vy - sqrt(3)/2*vx - d*wz;
  800d2be:	f04f 0200 	mov.w	r2, #0
  800d2c2:	4b59      	ldr	r3, [pc, #356]	@ (800d428 <_Z9moveSpeedddd+0x188>)
  800d2c4:	e9d7 0102 	ldrd	r0, r1, [r7, #8]
@@ -27527,101 +27527,100 @@ void moveSpeed(double vx, double vy, double wz)
  800d324:	f7f2 ffe0 	bl	80002e8 <__aeabi_dsub>
  800d328:	4602      	mov	r2, r0
  800d32a:	460b      	mov	r3, r1
- 800d32c:	4611      	mov	r1, r2
- 800d32e:	62b9      	str	r1, [r7, #40]	@ 0x28
- 800d330:	f083 4300 	eor.w	r3, r3, #2147483648	@ 0x80000000
- 800d334:	62fb      	str	r3, [r7, #44]	@ 0x2c
-	double Vm3 = 0.5*vy + sqrt(3)/2*vx - d*wz;
- 800d336:	f04f 0200 	mov.w	r2, #0
- 800d33a:	4b3b      	ldr	r3, [pc, #236]	@ (800d428 <_Z9moveSpeedddd+0x188>)
- 800d33c:	e9d7 0102 	ldrd	r0, r1, [r7, #8]
- 800d340:	f7f3 f98a 	bl	8000658 <__aeabi_dmul>
- 800d344:	4602      	mov	r2, r0
- 800d346:	460b      	mov	r3, r1
- 800d348:	4690      	mov	r8, r2
- 800d34a:	4699      	mov	r9, r3
- 800d34c:	2003      	movs	r0, #3
- 800d34e:	f7ff ff8d 	bl	800d26c <_ZSt4sqrtIiEN9__gnu_cxx11__enable_ifIXsrSt12__is_integerIT_E7__valueEdE6__typeES3_>
- 800d352:	ec51 0b10 	vmov	r0, r1, d0
- 800d356:	f04f 0200 	mov.w	r2, #0
- 800d35a:	f04f 4380 	mov.w	r3, #1073741824	@ 0x40000000
- 800d35e:	f7f3 faa5 	bl	80008ac <__aeabi_ddiv>
- 800d362:	4602      	mov	r2, r0
- 800d364:	460b      	mov	r3, r1
- 800d366:	4610      	mov	r0, r2
- 800d368:	4619      	mov	r1, r3
- 800d36a:	e9d7 2304 	ldrd	r2, r3, [r7, #16]
- 800d36e:	f7f3 f973 	bl	8000658 <__aeabi_dmul>
- 800d372:	4602      	mov	r2, r0
- 800d374:	460b      	mov	r3, r1
- 800d376:	4640      	mov	r0, r8
- 800d378:	4649      	mov	r1, r9
- 800d37a:	f7f2 ffb7 	bl	80002ec <__adddf3>
- 800d37e:	4602      	mov	r2, r0
- 800d380:	460b      	mov	r3, r1
- 800d382:	4690      	mov	r8, r2
- 800d384:	4699      	mov	r9, r3
- 800d386:	a326      	add	r3, pc, #152	@ (adr r3, 800d420 <_Z9moveSpeedddd+0x180>)
- 800d388:	e9d3 2300 	ldrd	r2, r3, [r3]
- 800d38c:	e9d7 0100 	ldrd	r0, r1, [r7]
- 800d390:	f7f3 f962 	bl	8000658 <__aeabi_dmul>
- 800d394:	4602      	mov	r2, r0
- 800d396:	460b      	mov	r3, r1
- 800d398:	4640      	mov	r0, r8
- 800d39a:	4649      	mov	r1, r9
- 800d39c:	f7f2 ffa4 	bl	80002e8 <__aeabi_dsub>
- 800d3a0:	4602      	mov	r2, r0
- 800d3a2:	460b      	mov	r3, r1
- 800d3a4:	e9c7 2308 	strd	r2, r3, [r7, #32]
-	double Vm2 = (-vy - d*wz);
- 800d3a8:	68bc      	ldr	r4, [r7, #8]
- 800d3aa:	68fb      	ldr	r3, [r7, #12]
- 800d3ac:	f083 4500 	eor.w	r5, r3, #2147483648	@ 0x80000000
- 800d3b0:	a31b      	add	r3, pc, #108	@ (adr r3, 800d420 <_Z9moveSpeedddd+0x180>)
- 800d3b2:	e9d3 2300 	ldrd	r2, r3, [r3]
- 800d3b6:	e9d7 0100 	ldrd	r0, r1, [r7]
- 800d3ba:	f7f3 f94d 	bl	8000658 <__aeabi_dmul>
- 800d3be:	4602      	mov	r2, r0
- 800d3c0:	460b      	mov	r3, r1
- 800d3c2:	4620      	mov	r0, r4
- 800d3c4:	4629      	mov	r1, r5
- 800d3c6:	f7f2 ff8f 	bl	80002e8 <__aeabi_dsub>
- 800d3ca:	4602      	mov	r2, r0
- 800d3cc:	460b      	mov	r3, r1
- 800d3ce:	e9c7 2306 	strd	r2, r3, [r7, #24]
+ 800d32c:	e9c7 230a 	strd	r2, r3, [r7, #40]	@ 0x28
+	double Vm2 = 0.5*vy + sqrt(3)/2*vx - d*wz;
+ 800d330:	f04f 0200 	mov.w	r2, #0
+ 800d334:	4b3c      	ldr	r3, [pc, #240]	@ (800d428 <_Z9moveSpeedddd+0x188>)
+ 800d336:	e9d7 0102 	ldrd	r0, r1, [r7, #8]
+ 800d33a:	f7f3 f98d 	bl	8000658 <__aeabi_dmul>
+ 800d33e:	4602      	mov	r2, r0
+ 800d340:	460b      	mov	r3, r1
+ 800d342:	4690      	mov	r8, r2
+ 800d344:	4699      	mov	r9, r3
+ 800d346:	2003      	movs	r0, #3
+ 800d348:	f7ff ff90 	bl	800d26c <_ZSt4sqrtIiEN9__gnu_cxx11__enable_ifIXsrSt12__is_integerIT_E7__valueEdE6__typeES3_>
+ 800d34c:	ec51 0b10 	vmov	r0, r1, d0
+ 800d350:	f04f 0200 	mov.w	r2, #0
+ 800d354:	f04f 4380 	mov.w	r3, #1073741824	@ 0x40000000
+ 800d358:	f7f3 faa8 	bl	80008ac <__aeabi_ddiv>
+ 800d35c:	4602      	mov	r2, r0
+ 800d35e:	460b      	mov	r3, r1
+ 800d360:	4610      	mov	r0, r2
+ 800d362:	4619      	mov	r1, r3
+ 800d364:	e9d7 2304 	ldrd	r2, r3, [r7, #16]
+ 800d368:	f7f3 f976 	bl	8000658 <__aeabi_dmul>
+ 800d36c:	4602      	mov	r2, r0
+ 800d36e:	460b      	mov	r3, r1
+ 800d370:	4640      	mov	r0, r8
+ 800d372:	4649      	mov	r1, r9
+ 800d374:	f7f2 ffba 	bl	80002ec <__adddf3>
+ 800d378:	4602      	mov	r2, r0
+ 800d37a:	460b      	mov	r3, r1
+ 800d37c:	4690      	mov	r8, r2
+ 800d37e:	4699      	mov	r9, r3
+ 800d380:	a327      	add	r3, pc, #156	@ (adr r3, 800d420 <_Z9moveSpeedddd+0x180>)
+ 800d382:	e9d3 2300 	ldrd	r2, r3, [r3]
+ 800d386:	e9d7 0100 	ldrd	r0, r1, [r7]
+ 800d38a:	f7f3 f965 	bl	8000658 <__aeabi_dmul>
+ 800d38e:	4602      	mov	r2, r0
+ 800d390:	460b      	mov	r3, r1
+ 800d392:	4640      	mov	r0, r8
+ 800d394:	4649      	mov	r1, r9
+ 800d396:	f7f2 ffa7 	bl	80002e8 <__aeabi_dsub>
+ 800d39a:	4602      	mov	r2, r0
+ 800d39c:	460b      	mov	r3, r1
+ 800d39e:	e9c7 2308 	strd	r2, r3, [r7, #32]
+	double Vm3 = -vy - d*wz;
+ 800d3a2:	68bc      	ldr	r4, [r7, #8]
+ 800d3a4:	68fb      	ldr	r3, [r7, #12]
+ 800d3a6:	f083 4500 	eor.w	r5, r3, #2147483648	@ 0x80000000
+ 800d3aa:	a31d      	add	r3, pc, #116	@ (adr r3, 800d420 <_Z9moveSpeedddd+0x180>)
+ 800d3ac:	e9d3 2300 	ldrd	r2, r3, [r3]
+ 800d3b0:	e9d7 0100 	ldrd	r0, r1, [r7]
+ 800d3b4:	f7f3 f950 	bl	8000658 <__aeabi_dmul>
+ 800d3b8:	4602      	mov	r2, r0
+ 800d3ba:	460b      	mov	r3, r1
+ 800d3bc:	4620      	mov	r0, r4
+ 800d3be:	4629      	mov	r1, r5
+ 800d3c0:	f7f2 ff92 	bl	80002e8 <__aeabi_dsub>
+ 800d3c4:	4602      	mov	r2, r0
+ 800d3c6:	460b      	mov	r3, r1
+ 800d3c8:	e9c7 2306 	strd	r2, r3, [r7, #24]
 
 	//pilotage des moteurs
+	// M3, 0, M2, M1
 	moteurs->motors_on();
- 800d3d2:	4b16      	ldr	r3, [pc, #88]	@ (800d42c <_Z9moveSpeedddd+0x18c>)
- 800d3d4:	681b      	ldr	r3, [r3, #0]
- 800d3d6:	4618      	mov	r0, r3
- 800d3d8:	f7f5 f98c 	bl	80026f4 <_ZN11BlocMoteurs9motors_onEv>
-	moteurs->commande_vitesses_absolues(Vm3, 0, Vm2, Vm1);
- 800d3dc:	4b13      	ldr	r3, [pc, #76]	@ (800d42c <_Z9moveSpeedddd+0x18c>)
- 800d3de:	681c      	ldr	r4, [r3, #0]
- 800d3e0:	e9d7 0108 	ldrd	r0, r1, [r7, #32]
- 800d3e4:	f7f3 fc10 	bl	8000c08 <__aeabi_d2f>
- 800d3e8:	4605      	mov	r5, r0
- 800d3ea:	e9d7 0106 	ldrd	r0, r1, [r7, #24]
- 800d3ee:	f7f3 fc0b 	bl	8000c08 <__aeabi_d2f>
- 800d3f2:	4606      	mov	r6, r0
- 800d3f4:	e9d7 010a 	ldrd	r0, r1, [r7, #40]	@ 0x28
- 800d3f8:	f7f3 fc06 	bl	8000c08 <__aeabi_d2f>
- 800d3fc:	4603      	mov	r3, r0
- 800d3fe:	ee01 3a90 	vmov	s3, r3
- 800d402:	ee01 6a10 	vmov	s2, r6
- 800d406:	eddf 0a0a 	vldr	s1, [pc, #40]	@ 800d430 <_Z9moveSpeedddd+0x190>
- 800d40a:	ee00 5a10 	vmov	s0, r5
- 800d40e:	4620      	mov	r0, r4
- 800d410:	f7f5 f915 	bl	800263e <_ZN11BlocMoteurs26commande_vitesses_absoluesEffff>
+ 800d3cc:	4b17      	ldr	r3, [pc, #92]	@ (800d42c <_Z9moveSpeedddd+0x18c>)
+ 800d3ce:	681b      	ldr	r3, [r3, #0]
+ 800d3d0:	4618      	mov	r0, r3
+ 800d3d2:	f7f5 f98f 	bl	80026f4 <_ZN11BlocMoteurs9motors_onEv>
+	moteurs->commande_vitesses_absolues(Vm2, 0, Vm3, -Vm1);
+ 800d3d6:	4b15      	ldr	r3, [pc, #84]	@ (800d42c <_Z9moveSpeedddd+0x18c>)
+ 800d3d8:	681c      	ldr	r4, [r3, #0]
+ 800d3da:	e9d7 0108 	ldrd	r0, r1, [r7, #32]
+ 800d3de:	f7f3 fc13 	bl	8000c08 <__aeabi_d2f>
+ 800d3e2:	4605      	mov	r5, r0
+ 800d3e4:	e9d7 0106 	ldrd	r0, r1, [r7, #24]
+ 800d3e8:	f7f3 fc0e 	bl	8000c08 <__aeabi_d2f>
+ 800d3ec:	4606      	mov	r6, r0
+ 800d3ee:	e9d7 010a 	ldrd	r0, r1, [r7, #40]	@ 0x28
+ 800d3f2:	f7f3 fc09 	bl	8000c08 <__aeabi_d2f>
+ 800d3f6:	4603      	mov	r3, r0
+ 800d3f8:	ee07 3a90 	vmov	s15, r3
+ 800d3fc:	eef1 7a67 	vneg.f32	s15, s15
+ 800d400:	eef0 1a67 	vmov.f32	s3, s15
+ 800d404:	ee01 6a10 	vmov	s2, r6
+ 800d408:	eddf 0a09 	vldr	s1, [pc, #36]	@ 800d430 <_Z9moveSpeedddd+0x190>
+ 800d40c:	ee00 5a10 	vmov	s0, r5
+ 800d410:	4620      	mov	r0, r4
+ 800d412:	f7f5 f914 	bl	800263e <_ZN11BlocMoteurs26commande_vitesses_absoluesEffff>
 }
- 800d414:	bf00      	nop
- 800d416:	373c      	adds	r7, #60	@ 0x3c
- 800d418:	46bd      	mov	sp, r7
- 800d41a:	e8bd 83f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, pc}
- 800d41e:	bf00      	nop
- 800d420:	0a3d70a4 	.word	0x0a3d70a4
- 800d424:	3fc0a3d7 	.word	0x3fc0a3d7
+ 800d416:	bf00      	nop
+ 800d418:	373c      	adds	r7, #60	@ 0x3c
+ 800d41a:	46bd      	mov	sp, r7
+ 800d41c:	e8bd 83f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, pc}
+ 800d420:	1eb851ec 	.word	0x1eb851ec
+ 800d424:	3fc1eb85 	.word	0x3fc1eb85
  800d428:	3fe00000 	.word	0x3fe00000
  800d42c:	2000057c 	.word	0x2000057c
  800d430:	00000000 	.word	0x00000000

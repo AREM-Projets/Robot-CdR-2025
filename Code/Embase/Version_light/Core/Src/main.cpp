@@ -768,15 +768,16 @@ void movePos(double dx, double dy, double theta) {
 
 void moveSpeed(double vx, double vy, double wz)
 {
-	const double d = 0.13; //m
+	const double d = 0.14; //m
 	//calcul des vitesses
-	double Vm1 = -(0.5*vy - sqrt(3)/2*vx - d*wz);
-	double Vm3 = 0.5*vy + sqrt(3)/2*vx - d*wz;
-	double Vm2 = (-vy - d*wz);
+	double Vm1 = 0.5*vy - sqrt(3)/2*vx - d*wz;
+	double Vm2 = 0.5*vy + sqrt(3)/2*vx - d*wz;
+	double Vm3 = -vy - d*wz;
 
 	//pilotage des moteurs
+	// M3, 0, M2, M1
 	moteurs->motors_on();
-	moteurs->commande_vitesses_absolues(Vm3, 0, Vm2, Vm1);
+	moteurs->commande_vitesses_absolues(Vm2, 0, Vm3, -Vm1);
 }
 
 
