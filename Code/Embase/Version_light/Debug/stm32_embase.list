@@ -37,15 +37,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  000281e8  00000000  00000000  0004d1b4  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0001dcf1  00000000  00000000  0007539c  2**0
+ 17 .debug_line   0001dc36  00000000  00000000  0007539c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000e49ce  00000000  00000000  0009308d  2**0
+ 18 .debug_str    000e49ce  00000000  00000000  00092fd2  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  00177a5b  2**0
+ 19 .comment      00000086  00000000  00000000  001779a0  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  0000b0a4  00000000  00000000  00177aa0  2**2
+ 20 .debug_frame  0000b0a4  00000000  00000000  00177a28  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000075  00000000  00000000  00182b44  2**0
+ 21 .debug_line_str 00000075  00000000  00000000  00182acc  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -4270,20 +4270,11 @@ unsigned int pps2[4] = {rad_to_step(dec_rad_s2_FL), rad_to_step(dec_rad_s2_FR), 
  8002914:	bd80      	pop	{r7, pc}
 
 08002916 <_ZSt3powIiiEN9__gnu_cxx11__promote_2IT_T0_NS0_9__promoteIS2_XsrSt12__is_integerIS2_E7__valueEE6__typeENS4_IS3_XsrS5_IS3_E7__valueEE6__typeEE6__typeES2_S3_>:
-#endif
-
-  template<typename _Tp, typename _Up>
-    inline _GLIBCXX_CONSTEXPR
-    typename __gnu_cxx::__promote_2<_Tp, _Up>::__type
-    pow(_Tp __x, _Up __y)
  8002916:	b5b0      	push	{r4, r5, r7, lr}
  8002918:	b082      	sub	sp, #8
  800291a:	af00      	add	r7, sp, #0
  800291c:	6078      	str	r0, [r7, #4]
  800291e:	6039      	str	r1, [r7, #0]
-    {
-      typedef typename __gnu_cxx::__promote_2<_Tp, _Up>::__type __type;
-      return pow(__type(__x), __type(__y));
  8002920:	6878      	ldr	r0, [r7, #4]
  8002922:	f7fd fe2f 	bl	8000584 <__aeabi_i2d>
  8002926:	4604      	mov	r4, r0
@@ -4297,7 +4288,6 @@ unsigned int pps2[4] = {rad_to_step(dec_rad_s2_FL), rad_to_step(dec_rad_s2_FR), 
  800293c:	f010 f818 	bl	8012970 <pow>
  8002940:	eeb0 7a40 	vmov.f32	s14, s0
  8002944:	eef0 7a60 	vmov.f32	s15, s1
-    }
  8002948:	eeb0 0a47 	vmov.f32	s0, s14
  800294c:	eef0 0a67 	vmov.f32	s1, s15
  8002950:	3708      	adds	r7, #8
@@ -4983,22 +4973,11 @@ bool BlocMoteurs::set_microstepping_mode(step_mode_t step_mode)
  8002e5c:	200002d0 	.word	0x200002d0
 
 08002e60 <_ZSt3minIfERKT_S2_S2_>:
-   *  preprocessor macro.
-  */
-  template<typename _Tp>
-    _GLIBCXX14_CONSTEXPR
-    inline const _Tp&
-    min(const _Tp& __a, const _Tp& __b)
  8002e60:	b480      	push	{r7}
  8002e62:	b083      	sub	sp, #12
  8002e64:	af00      	add	r7, sp, #0
  8002e66:	6078      	str	r0, [r7, #4]
  8002e68:	6039      	str	r1, [r7, #0]
-    {
-      // concept requirements
-      __glibcxx_function_requires(_LessThanComparableConcept<_Tp>)
-      //return __b < __a ? __b : __a;
-      if (__b < __a)
  8002e6a:	683b      	ldr	r3, [r7, #0]
  8002e6c:	ed93 7a00 	vldr	s14, [r3]
  8002e70:	687b      	ldr	r3, [r7, #4]
@@ -5006,12 +4985,9 @@ bool BlocMoteurs::set_microstepping_mode(step_mode_t step_mode)
  8002e76:	eeb4 7ae7 	vcmpe.f32	s14, s15
  8002e7a:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
  8002e7e:	d501      	bpl.n	8002e84 <_ZSt3minIfERKT_S2_S2_+0x24>
-	return __b;
  8002e80:	683b      	ldr	r3, [r7, #0]
  8002e82:	e000      	b.n	8002e86 <_ZSt3minIfERKT_S2_S2_+0x26>
-      return __a;
  8002e84:	687b      	ldr	r3, [r7, #4]
-    }
  8002e86:	4618      	mov	r0, r3
  8002e88:	370c      	adds	r7, #12
  8002e8a:	46bd      	mov	sp, r7
@@ -5019,22 +4995,11 @@ bool BlocMoteurs::set_microstepping_mode(step_mode_t step_mode)
  8002e90:	4770      	bx	lr
 
 08002e92 <_ZSt3maxIfERKT_S2_S2_>:
-   *  preprocessor macro.
-  */
-  template<typename _Tp>
-    _GLIBCXX14_CONSTEXPR
-    inline const _Tp&
-    max(const _Tp& __a, const _Tp& __b)
  8002e92:	b480      	push	{r7}
  8002e94:	b083      	sub	sp, #12
  8002e96:	af00      	add	r7, sp, #0
  8002e98:	6078      	str	r0, [r7, #4]
  8002e9a:	6039      	str	r1, [r7, #0]
-    {
-      // concept requirements
-      __glibcxx_function_requires(_LessThanComparableConcept<_Tp>)
-      //return  __a < __b ? __b : __a;
-      if (__a < __b)
  8002e9c:	687b      	ldr	r3, [r7, #4]
  8002e9e:	ed93 7a00 	vldr	s14, [r3]
  8002ea2:	683b      	ldr	r3, [r7, #0]
@@ -5042,12 +5007,9 @@ bool BlocMoteurs::set_microstepping_mode(step_mode_t step_mode)
  8002ea8:	eeb4 7ae7 	vcmpe.f32	s14, s15
  8002eac:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
  8002eb0:	d501      	bpl.n	8002eb6 <_ZSt3maxIfERKT_S2_S2_+0x24>
-	return __b;
  8002eb2:	683b      	ldr	r3, [r7, #0]
  8002eb4:	e000      	b.n	8002eb8 <_ZSt3maxIfERKT_S2_S2_+0x26>
-      return __a;
  8002eb6:	687b      	ldr	r3, [r7, #4]
-    }
  8002eb8:	4618      	mov	r0, r3
  8002eba:	370c      	adds	r7, #12
  8002ebc:	46bd      	mov	sp, r7
