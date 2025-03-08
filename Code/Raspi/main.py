@@ -10,23 +10,30 @@ ROTATION_DROITE         = b'9'
 STOP                    = b'5'
 RESET_POS               = b'.'
 
+RAD_TO_DEG = 180/3.14159265358979323846
+DEG_TO_RAD = 3.14159265358979323846/180
+
 def getpos():
+    """
+    Parse la trame de position envoyee par l'embase a la raspi.
+    La trame est de la forme: "x y r\n"
+    """
     parse_error_flag = 1
 
     while(parse_error_flag):
         try:
-            port_embase.read()
-            sleep(0.1)
+            # Tant que la trame n'est pas correctement parsee, on continue de lire
+            port_embase.reset_input_buffer()  # Flush the input buffer
             x = float(port_embase.readline().decode().split()[0].replace('\x00', ''))
             y = float(port_embase.readline().decode().split()[1].replace('\x00', ''))
             r = float(port_embase.readline().decode().split()[2].replace('\x00', ''))
             
-
             parse_error_flag = 0
         except:
             pass
 
     return  (x, y, r)
+
 
 
 #connexion a l'embase
@@ -48,14 +55,27 @@ Format de la trame de position envoyee par l'embase: "%.4f %.4f %.4f\n"
 """
 
 port_embase.write(RESET_POS)
-while(getpos()[0] != 0): pass
+while(getpos()[0] != 0): print(getpos())
 
 port_embase.write(AVANCER)
-while(getpos()[0] < 0.5) : pass
+while(getpos()[0] < 0.5) : print(getpos())
 
 port_embase.write(STOP)
+sleep(0.5)
+
+port_embase.write(TRANSLATION_DROITE)
+while(getpos()[1] < 0.2) : print(getpos())
+
+port_embase.write(STOP)
+sleep(0.5)
 
 port_embase.write(RECULER)
-while(getpos()[0] > 0) : pass
+while(getpos()[0] > 0) : print(getpos())
+
+port_embase.write(STOP)
+sleep(0.5)
+
+port_embase.write(TRANSLATION_GAUCHE)
+while(getpos()[1] > 0) : print(getpos())
 
 port_embase.write(STOP)
