@@ -36,7 +36,7 @@
 /* USER CODE BEGIN PD */
 #define STEPPER_STEP_MODE STEP_MODE_1_32
 #define MAXACC 10.0
-#define RAYON_ROUES 29.0/1000.0 //m
+#define RAYON_ROUES 0.029 //m
 #define RAYON_EMBASE 0.14 //m
 #define DEPL_CORR_COEFF 1.4//1.4 ?
 /* USER CODE END PD */
@@ -172,8 +172,8 @@ int main(void) {
 
 			//calcul de la position dans le referentiel table
 			position[2] += deplacement[2]; //angle
-			position[0] += (deplacement[0]*cos(position[2]) + deplacement[1]*sin(position[2])) / DEPL_CORR_COEFF; //px
-			position[1] += (deplacement[1]*cos(position[2]) - deplacement[0]*sin(position[2])) / DEPL_CORR_COEFF; //py
+			position[0] += (deplacement[0]*cos(position[2]) + deplacement[1]*sin(position[2])); //px
+			position[1] += (deplacement[1]*cos(position[2]) - deplacement[0]*sin(position[2])); //py
 
 
 			char message[100] = "";
@@ -709,15 +709,14 @@ static void MX_GPIO_Init(void) {
 
 void moveSpeed(double vx, double vy, double wz)
 {
-	const double d = 0.13; //m
 	//calcul des vitesses
-	double Vm1 = -(0.5*vy - sqrt(3)/2*vx - d*wz);
-	double Vm3 = 0.5*vy + sqrt(3)/2*vx - d*wz;
-	double Vm2 = (-vy - d*wz);
+	double Wm1 = -1/(2*RAYON_ROUES) * vy - sqrt(3)/(2*RAYON_ROUES) * vx + RAYON_EMBASE / RAYON_ROUES * wz;
+	double Wm3 = sqrt(3)/(2*RAYON_ROUES) * vx - 1/(2*RAYON_ROUES) * vy + RAYON_EMBASE / RAYON_ROUES * wz;
+	double Wm2 = (1/RAYON_ROUES * vy + RAYON_EMBASE/RAYON_ROUES*wz);//1/RAYON_ROUES * vy + RAYON_EMBASE * wz;
 
 	//pilotage des moteurs
 	moteurs->motors_on();
-	moteurs->commande_vitesses_absolues(Vm3, 0, Vm2, Vm1);
+	moteurs->commande_vitesses_absolues(Wm3, 0, Wm2, -Wm1);
 }
 
 
@@ -747,27 +746,27 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 			break;
 
 		case '8':
-			moveSpeed(5, 0, 0);
+			moveSpeed(0.1, 0, 0);
 			break;
 
 		case '2':
-			moveSpeed(-5, 0, 0);
+			moveSpeed(-0.1, 0, 0);
 			break;
 
 		case '4':
-			moveSpeed(0, -5, 0);
+			moveSpeed(0, -0.1, 0);
 			break;
 
 		case '6':
-			moveSpeed(0, 5, 0);
+			moveSpeed(0, 0.1, 0);
 			break;
 
 		case '7':
-			moveSpeed(0, 0, -20);
+			moveSpeed(0, 0, -1);
 			break;
 
 		case '9':
-			moveSpeed(0, 0, 20);
+			moveSpeed(0, 0, 1);
 			break;
 
 		case '0':
