@@ -38,7 +38,6 @@
 #define MAXACC 10.0
 #define RAYON_ROUES 0.029 //m
 #define RAYON_EMBASE 0.14 //m
-#define DEPL_CORR_COEFF 1.4//1.4 ?
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -166,9 +165,9 @@ int main(void) {
 			double dm3 = (double)(mesures[0]*distance_per_elementary_step);
 
 			//deplacement dans le referentiel robot
-			deplacement[0] = cos(M_PI/6) * (dm3 + dm1);			//dx
-			deplacement[1] = sin(M_PI/6) * (dm3 - dm1) - dm2;	//dy
-			deplacement[2] = (dm3-dm1+dm2)/3 / RAYON_EMBASE;				//dtheta
+			deplacement[0] = cos(M_PI/6) * (dm3 + dm1); //cos(M_PI/6) * (dm3 + dm1);			//dx
+			deplacement[1] = sin(M_PI/6) * (dm3 - dm1) - dm2;//sin(M_PI/6) * (dm3 - dm1) - dm2;	//dy
+			deplacement[2] = atan( ((dm3-dm1+dm2)/3) / (RAYON_EMBASE) );//(dm3-dm1+dm2)/3 / RAYON_EMBASE;				//dtheta
 
 			//calcul de la position dans le referentiel table
 			position[2] += deplacement[2]; //angle
@@ -754,19 +753,19 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 			break;
 
 		case '4':
-			moveSpeed(0, -0.1, 0);
-			break;
-
-		case '6':
 			moveSpeed(0, 0.1, 0);
 			break;
 
+		case '6':
+			moveSpeed(0, -0.1, 0);
+			break;
+
 		case '7':
-			moveSpeed(0, 0, -1);
+			moveSpeed(0, 0, 1);
 			break;
 
 		case '9':
-			moveSpeed(0, 0, 1);
+			moveSpeed(0, 0, -1);
 			break;
 
 		case '0':
