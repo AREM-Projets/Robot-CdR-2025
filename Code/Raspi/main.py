@@ -57,31 +57,31 @@ Format de la trame de position envoyee par l'embase: "%.4f %.4f %.4f\n"
 port_embase.write(RESET_POS)
 while(getpos()[0] != 0): print(getpos())
 
-# 360 degres
-port_embase.write(ROTATION_GAUCHE)
-while(getpos()[2] < 360*DEG_TO_RAD) : print(getpos())
+# # 360 degres
+# port_embase.write(ROTATION_GAUCHE)
+# while(getpos()[2] < 360*DEG_TO_RAD) : print(getpos())
+# port_embase.write(STOP)
+
+# rectangle
+port_embase.write(AVANCER)
+while(getpos()[0] < 0.3) : print(getpos())
+
 port_embase.write(STOP)
+sleep(0.5)
 
-# # rectangle
-# port_embase.write(AVANCER)
-# while(getpos()[0] < 0.5) : print(getpos())
+port_embase.write(TRANSLATION_DROITE)
+while(getpos()[1] > -0.2) : print(getpos())
 
-# port_embase.write(STOP)
-# sleep(0.5)
+port_embase.write(STOP)
+sleep(0.5)
 
-# port_embase.write(TRANSLATION_DROITE)
-# while(getpos()[1] < 0.2) : print(getpos())
+port_embase.write(RECULER)
+while(getpos()[0] > 0) : print(getpos())
 
-# port_embase.write(STOP)
-# sleep(0.5)
+port_embase.write(STOP)
+sleep(0.5)
 
-# port_embase.write(RECULER)
-# while(getpos()[0] > 0) : print(getpos())
+port_embase.write(TRANSLATION_GAUCHE)
+while(getpos()[1] < 0) : print(getpos())
 
-# port_embase.write(STOP)
-# sleep(0.5)
-
-# port_embase.write(TRANSLATION_GAUCHE)
-# while(getpos()[1] > 0) : print(getpos())
-
-# port_embase.write(STOP)
+port_embase.write(STOP)
