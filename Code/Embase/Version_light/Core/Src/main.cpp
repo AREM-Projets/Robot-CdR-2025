@@ -87,6 +87,8 @@ static void MX_TIM6_Init(void);
 
 
 /* USER CODE BEGIN PFP */
+void moveSpeed(double vx, double vy, double wz);
+void stop();
 
 /* USER CODE END PFP */
 
@@ -150,7 +152,26 @@ int main(void) {
 	moteurs->set_max_dec_moteurs(MAXACC, MAXACC, MAXACC, MAXACC);
 
 
+	// test steps
+
+	// appel mesure pas ecoule
+//	mesures = moteurs->mesure_pas_ecoule();
+//
+//	moteurs->motors_on();
+//	moteurs->commande_step(6400*1.5, 0, 0, 6400*1.5); // 3, 0, 2, 1
+//
+//	HAL_Delay(5000);
+//
+//	mesures = moteurs->mesure_pas_ecoule();
+
+//	while(1);
+
 	/* USER CODE END 2 */
+	moveSpeed(0.1, 0, 0);
+	HAL_Delay(1000);
+	stop();
+
+	while(1);
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
@@ -165,9 +186,9 @@ int main(void) {
 			double dm3 = (double)(mesures[0]*distance_per_elementary_step);
 
 			//deplacement dans le referentiel robot
-			deplacement[0] = cos(M_PI/6) * (dm3 + dm1); //cos(M_PI/6) * (dm3 + dm1);			//dx
-			deplacement[1] = sin(M_PI/6) * (dm3 - dm1) - dm2;//sin(M_PI/6) * (dm3 - dm1) - dm2;	//dy
-			deplacement[2] = atan( ((dm3-dm1+dm2)/3) / (RAYON_EMBASE) );//(dm3-dm1+dm2)/3 / RAYON_EMBASE;				//dtheta
+			deplacement[0] = sqrt(3)/3 * (dm3 + dm1);//cos(M_PI/6) * (dm3 + dm1); //cos(M_PI/6) * (dm3 + dm1);			//dx
+			deplacement[1] = - 2/3 * dm2 + 1/3 * (dm3 - dm1);                            // sin(M_PI/6) * (dm3 - dm1) - dm2;//sin(M_PI/6) * (dm3 - dm1) - dm2;	//dy
+			deplacement[2] = ((dm3-dm1+dm2)/3) / (RAYON_EMBASE) ; // atan( ((dm3-dm1+dm2)/3) / (RAYON_EMBASE) );//(dm3-dm1+dm2)/3 / RAYON_EMBASE;				//dtheta
 
 			//calcul de la position dans le referentiel table
 			position[2] += deplacement[2]; //angle
@@ -777,6 +798,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 			position[1] = 0;
 			position[2] = 0;
 			break;
+
 
 
 		default:
