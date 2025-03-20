@@ -1,3 +1,4 @@
+#include <cmath>
 #include <ctime>
 #include <signal.h>
 #include <stdio.h>
@@ -40,6 +41,31 @@ bool program_should_quit = false;
 
 bool checkSLAMTECLIDARHealth(ILidarDriver *drv);
 void end_program(int sig);
+
+/*
+On veut regarder l'arène :
+
+    +-----------------------------------+
+    |                                   |
+    |                                   | 2
+  1 |                                   |
+    |                                   |
+    |                                   | 3
+    |                                   |
+    +-----------------------------------+
+
+On veut ensuite trouver l'ordre des balises pour calculer notre position.
+En effet, le problème est qu'on ne peut pas donner les balises dans un
+ordre quelconque, sinon on prend le risque d'avoir une position biscornue.
+
+Enfin, on calcule leur position théorique relative à notre robot, en distance
+et angle, puis on compare avec ce que l'on a par le LIDAR.
+*/
+
+extern int pos_x, pos_y;
+
+void compute_theoritical_pos(float &cur_x, float &cur_y, float delta_x, float delta_y);
+void next_beacon_pos(float &dist, float &angle, float next_x, float next_y);
 
 int main()
 {
@@ -156,4 +182,17 @@ bool checkSLAMTECLIDARHealth(ILidarDriver *drv)
 void end_program(int sig)
 {
     program_should_quit = true;
+}
+
+void compute_theoritical_pos(float &x, float &y, float delta_x, float delta_y)
+{
+    x += delta_x, y += delta_y;
+}
+
+void next_beacon_pos(float &dist, float &angle, float delta_x, float delta_y, float rotation)
+{
+    /*  On calcule les longueurs manquantes du triangle rectangle.
+        On considère que la distance à la balise est l'hypothénuse. */
+    float tx = std::sin(angle) / dist;
+    float ty = std::cos(angle) / dist;
 }
