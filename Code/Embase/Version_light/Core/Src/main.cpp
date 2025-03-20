@@ -70,6 +70,8 @@ double distance_per_elementary_step = (DEG_PER_FULL_STEP*M_PI/180)/std::pow((flo
 
 uint8_t uart_received_char;
 
+double dm1, dm2, dm3;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -167,34 +169,34 @@ int main(void) {
 //	while(1);
 
 	/* USER CODE END 2 */
-	moveSpeed(0.1, 0, 0);
-	HAL_Delay(1000);
-	stop();
+	uint32_t timer;
 
-	while(1);
+
+	moveSpeed(0, 0, 1.57);
+	timer = HAL_GetTick();
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
-	while (1) {
+	while(HAL_GetTick() - timer < 4000) {//while (1) {
 		if(transmit_pos) {
 			transmit_pos = false;
 
 			//calcul du deplacement
 			mesures = moteurs->mesure_pas_ecoule();
-			double dm1 = (double)(mesures[3]*distance_per_elementary_step);
-			double dm2 = (double)(mesures[2]*distance_per_elementary_step);
-			double dm3 = (double)(mesures[0]*distance_per_elementary_step);
+			dm1 = (double)(mesures[3]*distance_per_elementary_step);
+			dm2 = (double)(mesures[2]*distance_per_elementary_step);
+			dm3 = (double)(mesures[0]*distance_per_elementary_step);
 
 			//deplacement dans le referentiel robot
 			deplacement[0] = sqrt(3)/3 * (dm3 + dm1);//cos(M_PI/6) * (dm3 + dm1); //cos(M_PI/6) * (dm3 + dm1);			//dx
-			deplacement[1] = - 2/3 * dm2 + 1/3 * (dm3 - dm1);                            // sin(M_PI/6) * (dm3 - dm1) - dm2;//sin(M_PI/6) * (dm3 - dm1) - dm2;	//dy
-			deplacement[2] = ((dm3-dm1+dm2)/3) / (RAYON_EMBASE) ; // atan( ((dm3-dm1+dm2)/3) / (RAYON_EMBASE) );//(dm3-dm1+dm2)/3 / RAYON_EMBASE;				//dtheta
+			deplacement[1] = 2.0/3.0 * dm2 + 1.0/3.0 * (- dm3 + dm1);                            // sin(M_PI/6) * (dm3 - dm1) - dm2;//sin(M_PI/6) * (dm3 - dm1) - dm2;	//dy
+			deplacement[2] = ((dm3-dm1+dm2)/3.0) / (RAYON_EMBASE) ; // atan( ((dm3-dm1+dm2)/3) / (RAYON_EMBASE) );//(dm3-dm1+dm2)/3 / RAYON_EMBASE;				//dtheta
 
 			//calcul de la position dans le referentiel table
-			position[2] += deplacement[2]; //angle
-			position[0] += (deplacement[0]*cos(position[2]) + deplacement[1]*sin(position[2])); //px
-			position[1] += (deplacement[1]*cos(position[2]) - deplacement[0]*sin(position[2])); //py
 
+			position[0] += deplacement[0]; //(deplacement[0]*cos(position[2] + deplacement[2]/2.0) + deplacement[1]*sin(position[2])); //px
+			position[1] += deplacement[1]; //(deplacement[1]*cos(position[2]) - deplacement[0]*sin(position[2])); //py
+			position[2] += deplacement[2]; //angle
 
 			char message[100] = "";
 
@@ -208,6 +210,9 @@ int main(void) {
 
 		/* USER CODE BEGIN 3 */
 	}
+
+	stop();
+	while(1);
 	/* USER CODE END 3 */
 }
 
