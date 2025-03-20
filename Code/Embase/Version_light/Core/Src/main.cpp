@@ -169,15 +169,10 @@ int main(void) {
 //	while(1);
 
 	/* USER CODE END 2 */
-	uint32_t timer;
-
-
-	moveSpeed(0, 0, 1.57);
-	timer = HAL_GetTick();
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
-	while(HAL_GetTick() - timer < 4000) {//while (1) {
+	while (1) {
 		if(transmit_pos) {
 			transmit_pos = false;
 
@@ -193,10 +188,10 @@ int main(void) {
 			deplacement[2] = ((dm3-dm1+dm2)/3.0) / (RAYON_EMBASE) ; // atan( ((dm3-dm1+dm2)/3) / (RAYON_EMBASE) );//(dm3-dm1+dm2)/3 / RAYON_EMBASE;				//dtheta
 
 			//calcul de la position dans le referentiel table
-
-			position[0] += deplacement[0]; //(deplacement[0]*cos(position[2] + deplacement[2]/2.0) + deplacement[1]*sin(position[2])); //px
-			position[1] += deplacement[1]; //(deplacement[1]*cos(position[2]) - deplacement[0]*sin(position[2])); //py
 			position[2] += deplacement[2]; //angle
+			position[0] += (deplacement[0]*cos(position[2]) + deplacement[1]*sin(position[2])); //px  + deplacement[2]/2.0
+			position[1] += (deplacement[1]*cos(position[2]) - deplacement[0]*sin(position[2])); //py
+
 
 			char message[100] = "";
 
@@ -211,8 +206,6 @@ int main(void) {
 		/* USER CODE BEGIN 3 */
 	}
 
-	stop();
-	while(1);
 	/* USER CODE END 3 */
 }
 
