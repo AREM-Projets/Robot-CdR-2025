@@ -23,20 +23,27 @@ DEG_TO_RAD = 3.14159265358979323846/180
 
 class Embase:
     def __init__(self, port="/dev/embase", baudrate=115200):
-        self.log = open("log.txt", 'a')
+        self.log = open("Code/Raspi/log.txt", 'a')
+        self.port = None
+        self.port_name = port
+        self.port_baudrate = baudrate
 
+        
+    def connect(self):
+        """
+        Connecte l'embase a la raspi
+        """
         try:
             print("[ ... ] Connexion embase")
-            self.log.write("\n" + str(dt.datetime.now()) + " - Connexion embase ...\n")
-            self.port = serial.Serial(port, baudrate, timeout=1) #timeout en secondes
+            self.log.write("\n" + str(dt.datetime.now()) + " - Connexion embase ...")
+            self.port = serial.Serial(self.port_name, self.port_baudrate, timeout=1) #timeout en secondes
             print("[ OK  ] Connexion embase")
-            self.log.write("\n" + str(dt.datetime.now()) + " - Connexion embase OK\n")
+            self.log.write("\n" + str(dt.datetime.now()) + " - Connexion embase OK")
         
         except:
             print("[ NOK ] Connexion embase: echec")
-            self.log.write("\n" + str(dt.datetime.now()) + " - Connexion embase NOK\n")
-        
-        
+            self.log.write("\n" + str(dt.datetime.now()) + " - Connexion embase NOK")
+
             
     def getpos(self):
         """
@@ -53,7 +60,8 @@ class Embase:
                 y = float(self.port.readline().decode().split()[1].replace('\x00', ''))
                 r = float(self.port.readline().decode().split()[2].replace('\x00', ''))
                 
-                self.log.write("\n" + str(dt.datetime.now()) + " - Position: {x}, {y}, {r}\n")
+                self.log.write("\n" + str(dt.datetime.now()) + f" - Position: {x}, {y}, {r}")
+                print(f"Position: {x}, {y}, {r}")
 
                 parse_error_flag = 0
             except:
@@ -67,6 +75,6 @@ class Embase:
     def stop(self):
         self.port.write(STOP)
 
-    def odo_reset(self):
+    def reset(self):
         self.port.write(RESET_POS)
-        while(self.getpos()[0] != 0): print(self.getpos())
+        while(self.getpos()[0] != 0): pass #print(self.getpos())
