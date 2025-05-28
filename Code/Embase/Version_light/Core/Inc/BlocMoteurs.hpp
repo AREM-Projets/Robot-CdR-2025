@@ -45,8 +45,11 @@ class BlocMoteurs
 		void commande_vitesses_absolues(float vitesse_absolue_FL, float vitesse_absolue_FR, float vitesse_absolue_BL, float vitesse_absolue_BR );
 
 		void commande_step(int number_of_step_FL, int number_of_step_FR, int number_of_step_BL, int number_of_step_BR);
+
+		uint32_t** motors_get_status_and_clear_fault();
 		/* Enable / Disable */
 		void motors_on();
+
 		void motors_stop_soft_hiz();
 		void motors_stop_hard_hiz();
 		void motors_stop_soft();

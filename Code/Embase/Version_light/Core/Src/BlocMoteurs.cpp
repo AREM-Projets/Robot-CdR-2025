@@ -230,6 +230,29 @@ void BlocMoteurs::motors_on()
     moteurs_arret = 0;
 }
 
+/**
+  * @brief  Recupere le statut des moteurs et permets de clear certaines fautes (uvlo...)
+  * @return Tableau des status, à déchiffrer bit à bit
+  *  premier uint32_t : adresse tableau shield 1 , [32 bit moteur 1, 32 bit moteur 2]
+  *  deuxieme uint32_t :  adresse tableau shield 2 , [32 bit moteur 1, 32 bit moteur 2]
+  *
+  *
+  */
+uint32_t** BlocMoteurs::motors_get_status_and_clear_fault()
+{
+
+	static uint32_t* to_return[2];
+	for(int i = 0; i < NMOTEURS; i ++)
+	{
+		moteurs[i]->prepare_get_status();
+	}
+    to_return[0] = shield_1->perform_prepared_actions();
+    to_return[1] = shield_2->perform_prepared_actions();
+    return to_return;
+
+
+}
+
 
 /**
   * @brief  stop les roues et les laisse libres par la suite

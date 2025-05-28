@@ -159,8 +159,12 @@ int main(void) {
 	// appel mesure pas ecoule
 //	mesures = moteurs->mesure_pas_ecoule();
 //
-//	moteurs->motors_on();
-//	moteurs->commande_step(6400*1.5, 0, 0, 6400*1.5); // 3, 0, 2, 1
+	uint32_t ** status_tab = moteurs->motors_get_status_and_clear_fault();
+
+	moteurs->motors_on();
+	moteurs->commande_step(6400*1.5, 0, 0, 6400*1.5); // 3, 0, 2, 1
+
+
 //
 //	HAL_Delay(5000);
 //

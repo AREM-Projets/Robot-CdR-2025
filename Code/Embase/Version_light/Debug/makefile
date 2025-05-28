@@ -84,8 +84,8 @@ all: main-build
 main-build: stm32_embase.elf secondary-outputs
 
 # Tool invocations
-stm32_embase.elf stm32_embase.map: $(OBJS) $(USER_OBJS) C:\Users\chass\Documents\AREM\Robot-CdR-2025\Code\Embase\Version_light\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "stm32_embase.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\chass\Documents\AREM\Robot-CdR-2025\Code\Embase\Version_light\STM32F446RETX_FLASH.ld" -Wl,-Map="stm32_embase.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+stm32_embase.elf stm32_embase.map: $(OBJS) $(USER_OBJS) /root/workspace/Robot-CdR-2025/Code/Embase/Version_light/STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "stm32_embase.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/root/workspace/Robot-CdR-2025/Code/Embase/Version_light/STM32F446RETX_FLASH.ld" -Wl,-Map="stm32_embase.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

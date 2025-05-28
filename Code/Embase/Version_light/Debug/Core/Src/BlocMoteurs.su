@@ -13,25 +13,26 @@
 ../Core/Src/BlocMoteurs.cpp:180:6:void BlocMoteurs::commande_step(int, int, int, int)	32	static
 ../Core/Src/BlocMoteurs.cpp:211:6:void BlocMoteurs::set_step_moteur(unsigned int, StepperMotor::direction_t, id_moteurs)	24	static
 ../Core/Src/BlocMoteurs.cpp:228:6:void BlocMoteurs::motors_on()	16	static
-../Core/Src/BlocMoteurs.cpp:239:6:void BlocMoteurs::motors_stop_soft_hiz()	24	static
-../Core/Src/BlocMoteurs.cpp:255:6:void BlocMoteurs::motors_stop_hard_hiz()	24	static
-../Core/Src/BlocMoteurs.cpp:275:6:void BlocMoteurs::motors_stop_soft()	24	static
-../Core/Src/BlocMoteurs.cpp:294:6:void BlocMoteurs::motors_stop_hard()	24	static
-../Core/Src/BlocMoteurs.cpp:316:6:void BlocMoteurs::set_max_speed_moteurs(float, float, float, float)	56	static
-../Core/Src/BlocMoteurs.cpp:337:6:void BlocMoteurs::set_min_speed_moteurs(float, float, float, float)	56	static
-../Core/Src/BlocMoteurs.cpp:357:6:void BlocMoteurs::set_max_acc_moteurs(float, float, float, float)	56	static
-../Core/Src/BlocMoteurs.cpp:377:6:void BlocMoteurs::set_max_dec_moteurs(float, float, float, float)	56	static
-../Core/Src/BlocMoteurs.cpp:395:8:float* BlocMoteurs::mesure_vitesses_rad()	24	static
-../Core/Src/BlocMoteurs.cpp:412:11:int32_t* BlocMoteurs::mesure_vitesses_step()	72	static
-C:\ST\STM32CubeIDE_1.17.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130\tools\bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/include/c++/12.3.1/cmath:415:5:constexpr typename __gnu_cxx::__promote_2<_Tp, _Up>::__type std::pow(_Tp, _Up) [with _Tp = int; _Up = int]	24	static
-../Core/Src/BlocMoteurs.cpp:452:10:int32_t* BlocMoteurs::mesure_pas_ecoule()	80	static
-../Core/Src/BlocMoteurs.cpp:484:6:bool BlocMoteurs::get_busy()	48	static
-../Core/Src/BlocMoteurs.cpp:509:6:bool BlocMoteurs::set_microstepping_mode(StepperMotor::step_mode_t)	24	static
+../Core/Src/BlocMoteurs.cpp:241:12:uint32_t** BlocMoteurs::motors_get_status_and_clear_fault()	24	static
+../Core/Src/BlocMoteurs.cpp:262:6:void BlocMoteurs::motors_stop_soft_hiz()	24	static
+../Core/Src/BlocMoteurs.cpp:278:6:void BlocMoteurs::motors_stop_hard_hiz()	24	static
+../Core/Src/BlocMoteurs.cpp:298:6:void BlocMoteurs::motors_stop_soft()	24	static
+../Core/Src/BlocMoteurs.cpp:317:6:void BlocMoteurs::motors_stop_hard()	24	static
+../Core/Src/BlocMoteurs.cpp:339:6:void BlocMoteurs::set_max_speed_moteurs(float, float, float, float)	56	static
+../Core/Src/BlocMoteurs.cpp:360:6:void BlocMoteurs::set_min_speed_moteurs(float, float, float, float)	56	static
+../Core/Src/BlocMoteurs.cpp:380:6:void BlocMoteurs::set_max_acc_moteurs(float, float, float, float)	56	static
+../Core/Src/BlocMoteurs.cpp:400:6:void BlocMoteurs::set_max_dec_moteurs(float, float, float, float)	56	static
+../Core/Src/BlocMoteurs.cpp:418:8:float* BlocMoteurs::mesure_vitesses_rad()	24	static
+../Core/Src/BlocMoteurs.cpp:435:11:int32_t* BlocMoteurs::mesure_vitesses_step()	72	static
+/opt/st/stm32cubeide_1.15.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.0.100.202403111256/tools/arm-none-eabi/include/c++/12.3.1/cmath:415:5:constexpr typename __gnu_cxx::__promote_2<_Tp, _Up>::__type std::pow(_Tp, _Up) [with _Tp = int; _Up = int]	24	static
+../Core/Src/BlocMoteurs.cpp:475:10:int32_t* BlocMoteurs::mesure_pas_ecoule()	80	static
+../Core/Src/BlocMoteurs.cpp:507:6:bool BlocMoteurs::get_busy()	48	static
+../Core/Src/BlocMoteurs.cpp:532:6:bool BlocMoteurs::set_microstepping_mode(StepperMotor::step_mode_t)	24	static
 ../Core/Inc/L6470.h:277:5:L6470<shield_x>::L6470(GPIO_TypeDef*, uint16_t, GPIO_TypeDef*, uint16_t, SPI_HandleTypeDef*) [with shield_x = shield_1]	24	static
 ../Core/Inc/L6470.h:277:5:L6470<shield_x>::L6470(GPIO_TypeDef*, uint16_t, GPIO_TypeDef*, uint16_t, SPI_HandleTypeDef*) [with shield_x = shield_2]	24	static
 ../Core/Inc/L6470.h:277:5:L6470<shield_x>::L6470(GPIO_TypeDef*, uint16_t, GPIO_TypeDef*, uint16_t, SPI_HandleTypeDef*) [with shield_x = shield_3]	24	static
-C:\ST\STM32CubeIDE_1.17.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130\tools\bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/include/c++/12.3.1/bits/stl_algobase.h:230:5:constexpr const _Tp& std::min(const _Tp&, const _Tp&) [with _Tp = float]	16	static
-C:\ST\STM32CubeIDE_1.17.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130\tools\bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/include/c++/12.3.1/bits/stl_algobase.h:254:5:constexpr const _Tp& std::max(const _Tp&, const _Tp&) [with _Tp = float]	16	static
+/opt/st/stm32cubeide_1.15.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.0.100.202403111256/tools/arm-none-eabi/include/c++/12.3.1/bits/stl_algobase.h:230:5:constexpr const _Tp& std::min(const _Tp&, const _Tp&) [with _Tp = float]	16	static
+/opt/st/stm32cubeide_1.15.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.0.100.202403111256/tools/arm-none-eabi/include/c++/12.3.1/bits/stl_algobase.h:254:5:constexpr const _Tp& std::max(const _Tp&, const _Tp&) [with _Tp = float]	16	static
 ../Core/Inc/L6470.h:315:5:L6470<shield_x>::~L6470() [with shield_x = shield_3]	16	static
 ../Core/Inc/L6470.h:315:5:L6470<shield_x>::~L6470() [with shield_x = shield_3]	16	static
 ../Core/Inc/L6470.h:315:5:L6470<shield_x>::~L6470() [with shield_x = shield_2]	16	static
